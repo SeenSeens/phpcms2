@@ -1,0 +1,16 @@
+.col-sm-10 {
+	background-color: #ffffff;
+}
+#Side_Menu a {
+	color: #9fb1c2;
+}
+#Side_Menu .active a {
+	color: #ffffff;
+	background-color: #27AAE1;
+	font-weight: bold;
+}
+.navbar-nav li {
+	font-weight: bold;
+	font-family: Bitter, Georgia, Times, "Times New Roman", serif;
+	font-size: 1.2em;
+}
