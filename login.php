@@ -1,5 +1,5 @@
-<?php require_once 'include/db.php'; ?>
 <?php require_once 'include/sessions.php'; ?>
+<?php require_once 'include/db.php'; ?>
 <?php require_once 'include/functions.php'; ?>
 
 <?php
@@ -10,11 +10,15 @@ if(isset($_POST['submit'])) {
 		$_SESSION["ErrorMessage"] = 'All Fields must be filled out';
 		Redirect_to("login.php");
 	} else {
-        $Found_Account = Login_Attempt($Username, $Password);
+        $Found_Account = Login_Attempt($UserName, $Password);
+        $_SESSION["User_Id"] = $Found_Account["id"];
+        $_SESSION["UserName"] = $Found_Account["username"];
         if($Found_Account) {
-            echo "worked :)";
+            $_SESSION["SuccessMessage"] = "Welcome {$_SESSION["UserName"]}";
+            Redirect_to("dashboard.php");
         } else {
-            echo "Not worked";
+            $_SESSION["ErrorMessage"] = "Invalid Username / Password";
+            Redirect_to("login.php");
         }
 	}
 }
@@ -68,7 +72,7 @@ if(isset($_POST['submit'])) {
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-lock text-primary"></span>
                                 </span>
-                                <input class="form-control" type="text" name="Password" id="password" placeholder="Password">
+                                <input class="form-control" type="password" name="Password" id="password" placeholder="Password">
                             </div>								
                         </div>
                         <input class="btn btn-info btn-block" type="submit" name="submit" value="Login">

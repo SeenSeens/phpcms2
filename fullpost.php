@@ -157,9 +157,9 @@ if(isset($_POST['submit'])) {
 				?>
 				<div class="CommentBlock">
 					<img style="margin-left: 10px; margin-top: 10px;" class="pull-left" src="images/comment.png" alt="" width="50px" height="50px">
-					<p style="margin-left: 90px" class="Comment-Info"><?php echo $CommentName ?></p>
-					<p style="margin-left: 90px" class="description"><?php echo $CommentDate; ?></p>
-					<p style="margin-left: 90px" class="Comment"><?php echo nl2br($Comments); ?></p>
+					<p style="margin-left: 90px" class="Comment-Info"><?= $CommentName ?></p>
+					<p style="margin-left: 90px" class="description"><?=$CommentDate; ?></p>
+					<p style="margin-left: 90px" class="Comment"><?= nl2br($Comments); ?></p>
 				</div>
 				<?php
 				}

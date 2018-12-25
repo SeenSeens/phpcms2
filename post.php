@@ -2,6 +2,37 @@
 <?php require_once 'include/sessions.php'; ?>
 <?php require_once 'include/functions.php'; ?>
 
+<?php
+if(isset($_POST['submit'])) {
+	$Name = mysqli_real_escape_string($Connection, $_POST['Name']);
+	$Email = mysqli_real_escape_string($Connection, $_POST['Email']);
+	$Comment = mysqli_real_escape_string($Connection, $_POST['Comment']);
+	date_default_timezone_set("Asia/Ho_Chi_Minh");
+	$currentTime = time();
+	$dateTime = strftime("%d-%m-%Y", $currentTime);
+	$dateTime;
+	$PostId = $_GET['id'];
+	if(empty($Name) || empty($Email) || empty($Comment)) {
+		$_SESSION["ErrorMessage"] = "All fields are required";
+	} elseif (strlen($Comment) > 500) {
+		$_SESSION["ErrorMessage"] = "Only 500  characters are allowed in comment";
+	} else {
+		$PostIDFromURL = $_GET['id'];
+		$Query = "INSERT INTO comments (datetime, name, email, comment, status, admin_panel_id) VALUES ('$dateTime', '$Name', '$Email', '$Comment', 'OFF', '$PostIDFromURL')";
+		$Execute = mysqli_query($Connection, $Query);
+		if ($Execute) {
+			$_SESSION["SuccessMessage"] = "Comment Submitted Successfully";
+            /* Redirect_to("fullpost.php?id={$PostId}"); */
+            Redirect_to("post.php?id={$PostId}");
+		} else {
+			$_SESSION["ErrorMessage"] = "Something Went Wrong. Try Again !";
+            /* Redirect_to("fullpost.php?id={$PostId}"); */
+            Redirect_to("post.php?id={$PostId}");
+		}
+	}
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -107,8 +138,75 @@ while ($DataRows = mysqli_fetch_array($Execute)) {
         </div>
     </div>
 </article>
-
 <hr>
+
+<div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+        <!-- Comments Form -->
+        <div class="card my-4">
+            <h5 class="card-header">Leave a Comment:</h5>
+            <div class="card-body">
+                <form action="post.php?id=<?= $PostId; ?>" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="name"><span class="FieldInfo">Name:</span></label>
+                        <input class="form-control" type="text" name="Name" id="name" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email"><span class="FieldInfo">Email:</span></label>
+                        <input class="form-control" type="email" name="Email" id="email" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="commentarea"><span class="FieldInfo">Comment:</span></label>
+                        <textarea class="form-control" rows="3" placeholder="Write something here" id="commentarea" name="Comment"></textarea>
+                    </div>
+                    <button type="submit" name="submit" class="btn btn-primary">Comments</button>
+                </form>
+            </div>
+        </div>
+        <!-- Single Comment -->
+        <?php
+        $PostIdFromComments = $_GET['id'];
+        $ExtractingCommentQuery = "SELECT * FROM comments WHERE admin_panel_id = '$PostIdFromComments'";
+        $Execute = mysqli_query($Connection, $ExtractingCommentQuery);
+        while ($DataRows = mysqli_fetch_array($Execute)) {
+            $CommentDate = $DataRows['datetime'];
+            $CommentName = $DataRows['name'];
+            $Comments = $DataRows['comment'];
+        ?>
+        <div class="media mb-4">
+            <img class="d-flex mr-3 rounded-circle" src="images/comment.png" alt="">
+            <div class="media-body">
+                <h5 class="mt-0"><?= $CommentName ?></h5>
+                <span><?= nl2br($Comments); ?></span>
+            </div>
+        </div>
+        <?php
+        }
+        ?>
+        <!-- Comment with nested comments -->
+        <!-- <div class="media mb-4">
+            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+            <div class="media-body">
+                <h5 class="mt-0">Commenter Name</h5>
+                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                <div class="media mt-4">
+                    <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                    <div class="media-body">
+                        <h5 class="mt-0">Commenter Name</h5>
+                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                    </div>
+                </div>
+                <div class="media mt-4">
+                    <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                    <div class="media-body">
+                        <h5 class="mt-0">Commenter Name</h5>
+                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>
 
 <!-- Footer -->
 <footer>

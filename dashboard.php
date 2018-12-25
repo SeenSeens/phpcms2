@@ -1,7 +1,7 @@
 <?php require_once 'include/sessions.php'; ?>
 <?php require_once 'include/functions.php'; ?>
 <?php require_once 'include/db.php'; ?>
-
+<?php /* Confirm_Login(); */ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +29,8 @@
 		<div class="collapse navbar-collapse" id="collapse">
 		<ul class="nav navbar-nav">
 			<li><a href="#">Home</a></li>
-			<li class="active"><a href="blog.php" target="_blank">Blog</a></li>
+			<!-- <li class="active"><a href="blog.php" target="_blank">Blog</a></li> -->
+			<li class="active"><a href="index.php" target="_blank">Blog</a></li>
 			<li><a href="#">About Us</a></li>
 			<li><a href="#">Services</a></li>
 			<li><a href="#">Contact Us</a></li>
