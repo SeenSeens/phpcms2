@@ -129,16 +129,16 @@ if(isset($_POST['submit'])) {
 				?>
 				<div class="thumbnail blogpost">
 					<img class="img-responsive img-rounded" src="upload/<?= $Image; ?>" >
-				<div class="caption">
-					<h1 id="heading"> <?= htmlentities($Title); ?></h1>
-					<p class="description">Category: <?= htmlentities($Category); ?></p>
-					Published on <?= htmlentities($DateTime); ?>
-					<p class="post">
-						<?php
-							echo $Post;
-						?>
-					</p>
-				</div>
+					<div class="caption">
+						<h1 id="heading"> <?= htmlentities($Title); ?></h1>
+						<p class="description">Category: <?= htmlentities($Category); ?></p>
+						Published on <?= htmlentities($DateTime); ?>
+						<p class="post">
+							<?php
+								nl2br($Post);
+							?>
+						</p>
+					</div>
 				</div>
 				<?php
 				}
@@ -148,7 +148,7 @@ if(isset($_POST['submit'])) {
 				<?php
 				global $Connection;
 				$PostIdFromComments = $_GET['id'];
-				$ExtractingCommentQuery = "SELECT * FROM comments WHERE admin_panel_id = '$PostIdFromComments'";
+				$ExtractingCommentQuery = "SELECT * FROM comments WHERE admin_panel_id = '$PostIdFromComments' AND status = 'ON'";
 				$Execute = mysqli_query($Connection, $ExtractingCommentQuery);
 				while ($DataRows = mysqli_fetch_array($Execute)) {
 				    $CommentDate = $DataRows['datetime'];
@@ -158,7 +158,7 @@ if(isset($_POST['submit'])) {
 				<div class="CommentBlock">
 					<img style="margin-left: 10px; margin-top: 10px;" class="pull-left" src="images/comment.png" alt="" width="50px" height="50px">
 					<p style="margin-left: 90px" class="Comment-Info"><?= $CommentName ?></p>
-					<p style="margin-left: 90px" class="description"><?=$CommentDate; ?></p>
+					<p style="margin-left: 90px" class="description"><?= $CommentDate; ?></p>
 					<p style="margin-left: 90px" class="Comment"><?= nl2br($Comments); ?></p>
 				</div>
 				<?php
@@ -185,13 +185,16 @@ if(isset($_POST['submit'])) {
 					</form>
 				</div>
 			</div> <!-- End Main Blog -->
-			<div class="col-sm-offset-1 col-sm-3"></div> <!-- End Sidebar right -->
+			<div class="col-sm-offset-1 col-sm-3">
+			<h2>test</h2>
+            <p>Vào một buổi sáng nọ trong mùa Noel, khung cảnh tuyết trắng phủ mọi nơi cùng với không khí yên ắng của đất trời đã cho Morh cảm hứng sáng tác. Ngay hôm ấy, Joseph Morh đã viết một bài thơ ngắn mang tên “Stille Nacht! Heilige Nacht!” (tên tiếng Anh là “Silent Night! Holy Night!”; ở Việt Nam thường được dịch là “Đêm Thánh vô cùng”) – sau này trở thành lời của bài hát “Silent Night” bản tiếng Đức.</p>
+			</div> <!-- End Sidebar right -->
 		</div> <!-- End Row -->
 	</div>
 </div> <!-- End container -->
 
 <div class="footer">
-	<!-- <p style="color: #838383; text-align: center;">&copy; &nbsp;2018</p> -->
+	<p style="color: #838383; text-align: center;">&copy; &nbsp;2018</p>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>

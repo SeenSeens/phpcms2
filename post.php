@@ -45,11 +45,11 @@ if(isset($_POST['submit'])) {
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
         <!-- Custom fonts for this template -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' type='text/css'>
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' type='text/css'>
         <!-- Custom styles for this template -->
-        <link href="css/clean-blog.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="css/clean-blog.css">
+        <link rel="stylesheet" href="css/clean-blog.min.css">
+        <link rel="stylesheet" href="css/stylepost.css">
     </head>
 <body>
 
@@ -92,7 +92,7 @@ while ($DataRows = mysqli_fetch_array($Execute)) {
     $Admin = $DataRows["author"];
     $Image = $DataRows["images"];
 ?>
-<header class="masthead" style="background-image: url('upload/<?= $Image; ?>')">
+<header class="masthead" style="background-image: url('upload/<?= $Image; ?>');">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">

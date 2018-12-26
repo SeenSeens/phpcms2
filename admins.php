@@ -107,7 +107,7 @@ if(isset($_POST['submit'])) {
 					</a>
 				</li>
 				<li><a href="#"><span class="glyphicon glyphicon-equalizer"></span>&nbsp; Live Blog</a></li>
-				<li><a href="#"><span class="glyphicon glyphicon-log-out"></span>&nbsp; Logout</a></li>
+				<li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span>&nbsp; Logout</a></li>
 			</ul>
 		</div> <!-- End Side Area -->
 		<div class="col-sm-10">
