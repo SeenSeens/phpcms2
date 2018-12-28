@@ -1,26 +1,27 @@
-<?php require_once 'include/sessions.php'; ?>
 <?php require_once 'include/db.php'; ?>
+<?php require_once 'include/sessions.php'; ?>
 <?php require_once 'include/functions.php'; ?>
 
 <?php
 if(isset($_POST['submit'])) {
-    $UserName = mysqli_real_escape_string($Connection, $_POST['UserName']);
+    $Username = mysqli_real_escape_string($Connection, $_POST['Username']);
     $Password = mysqli_real_escape_string($Connection, $_POST['Password']);
-	if(empty($UserName) || empty($Password)) {
+	if(empty($Username) || empty($Password)) {
 		$_SESSION["ErrorMessage"] = 'All Fields must be filled out';
-		Redirect_to("login.php");
-	} else {
-        $Found_Account = Login_Attempt($UserName, $Password);
-        $_SESSION["User_Id"] = $Found_Account["idadmin"];
-        $_SESSION["UserName"] = $Found_Account["nameadmin"];
-        if($Found_Account) {
-            $_SESSION["SuccessMessage"] = "Welcome {$_SESSION["UserName"]}";
-            Redirect_to("dashboard.php");
-        } else {
-            $_SESSION["ErrorMessage"] = "Invalid Username / Password";
-            Redirect_to("login.php");
-        }
-	}
+        Redirect_to("login.php");
+        die();
+	} 
+    $Found_Account = Login_Attempt($Username, $Password);
+    var_dump($Found_Account); die();
+    // $_SESSION["User_Id"] = $Found_Account["idadmin"];
+    // $_SESSION["Username"] = $Found_Account["nameadmin"];
+    if($Found_Account) {
+        $_SESSION["SuccessMessage"] = "Welcome {$_SESSION["Username"]}";
+        Redirect_to("dashboard.php");
+    } else {
+        $_SESSION["ErrorMessage"] = "Invalid Username / Password";
+        Redirect_to("login.php");
+    }
 }
 ?>
 
@@ -62,7 +63,7 @@ if(isset($_POST['submit'])) {
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-user text-primary"></span>
                                 </span>
-                                <input class="form-control" type="text" name="UserName" id="username" placeholder="Username">
+                                <input class="form-control" type="text" name="Username" id="username" placeholder="Username">
                             </div>
                         </div>
                         <div class="form-group">

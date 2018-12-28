@@ -138,7 +138,7 @@ if(isset($_POST['delete'])) {
 						</div>
 						<div class="form-group">
 							<label for="slug"><span class="FieldInfo">Slug:</span></label>
-							<input value="<?= $SlugDelete; ?>" class="form-control" type="text" name="Slug" id="slug" placeholder="Slug">
+							<input disabled value="<?= $SlugDelete; ?>" class="form-control" type="text" name="Slug" id="slug" placeholder="Slug">
 						</div>
 						<div class="form-group">
 							<span class="FieldInfo">Existing Category:</span>

@@ -104,7 +104,7 @@ if(isset($_POST['submit'])) {
 				<li>
 					<a href="comments.php"><span class="glyphicon glyphicon-comment"></span>&nbsp; Comments
 					<?php
-					$QueryApproved = "SELECT COUNT(*) FROM comments WHERE status = 'OFF'";
+					$QueryApproved = "SELECT COUNT(*) FROM comment WHERE status = 'OFF'";
 					$ExecuteApproved  = mysqli_query($Connection, $QueryApproved);
 					$RowApproved  = mysqli_fetch_array($ExecuteApproved );
 					$TotalApproved  = array_shift($RowApproved);

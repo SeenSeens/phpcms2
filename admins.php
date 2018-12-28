@@ -32,7 +32,6 @@ if(isset($_POST['submit'])) {
 		Redirect_to("admins.php");
 		die();
 	}
-	global $Connection;
 	$Query = "INSERT INTO admin (nameadmin, email, password, role, dateofassociation, addby) VALUES ('$UserName', '$Email', '$Password', '$Role', '$dateTime', '$Addby')";
 	$Execute = mysqli_query($Connection, $Query);
 	if ($Execute) {
@@ -52,7 +51,7 @@ if(isset($_POST['submit'])) {
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-	<link rel="stylesheet" href="../css/adminstyle.css">
+	<link rel="stylesheet" href="css/adminstyle.css">
 	<style type="text/css">
 		.FieldInfo {
 			color: rgb(251, 174, 44);
@@ -167,7 +166,6 @@ if(isset($_POST['submit'])) {
 						<th>Email</th>
 						<th>Role</th>
 						<th>Assembly Day</th>
-						<th>Is Root</th>
 						<th>Added By</th>
 						<th>Action</th>
 					</tr>
@@ -177,19 +175,23 @@ if(isset($_POST['submit'])) {
 					$Execute = mysqli_query($Connection, $ViewQuery);
 					$SrNo = 0;
 					while ($DataRows = mysqli_fetch_array($Execute)) {
-						$Id = $DataRows["id"];
-						$DateTime = $DataRows["datetime"];
-						$UserName = $DataRows["username"];
-						$Admin = $DataRows["addedby"];
+						$IdAdmin = $DataRows["idadmin"];
+						$NameAdmin = $DataRows["nameadmin"];
+						$Email = $DataRows["email"];
+						$Role = $DataRows["role"];
+						$AssemblyDay = $DataRows["dateofassociation"];
+						$AddedBy = $DataRows["addby"];
 						$SrNo++;
 						?>
 						<tr>
 							<td><?= $SrNo; ?></td>
-							<td><?= $DateTime; ?></td>
-							<td><?= $UserName; ?></td>
-							<td><?= $Admin; ?></td>
+							<td><?= $NameAdmin; ?></td>
+							<td><?= $Email; ?></td>
+							<td><?= $Role; ?></td>
+							<td><?= $AssemblyDay; ?></td>
+							<td><?= $AddedBy; ?></td>
 							<td>
-								<a href="deleteadmin.php?id=<?= $Id; ?>">
+								<a href="deleteadmin.php?id=<?= $IdAdmin; ?>">
 									<span class="btn btn-danger">Delete</span>
 								</a>
 							</td>

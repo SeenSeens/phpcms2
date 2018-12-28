@@ -7,11 +7,11 @@ function Redirect_to($New_Location) {
 	exit();
 }
 
-function Login_Attempt($UserName, $Password) {
+function Login_Attempt($Username, $Password) {
 	$Connection;
-	$Query = "SELECT * FROM admin WHERE nameadmin='$UserName' AND password='$Password'";
+	$Query = "SELECT * FROM admin WHERE nameadmin='$Username' AND password='$Password'";
 	$Execute = mysqli_query($Connection, $Query);
-	if($admin = mysqli_fetch_assoc($Execute)) {
+	if($admin = mysql_num_rows($Execute)) {
 		return $admin;
 	} else {
 		return null;
