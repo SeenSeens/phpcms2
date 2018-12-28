@@ -11,8 +11,8 @@ if(isset($_POST['submit'])) {
 		Redirect_to("login.php");
 	} else {
         $Found_Account = Login_Attempt($UserName, $Password);
-        $_SESSION["User_Id"] = $Found_Account["id"];
-        $_SESSION["UserName"] = $Found_Account["username"];
+        $_SESSION["User_Id"] = $Found_Account["idadmin"];
+        $_SESSION["UserName"] = $Found_Account["nameadmin"];
         if($Found_Account) {
             $_SESSION["SuccessMessage"] = "Welcome {$_SESSION["UserName"]}";
             Redirect_to("dashboard.php");
@@ -31,7 +31,8 @@ if(isset($_POST['submit'])) {
 	<title>Categories</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-	<link rel="stylesheet" href="css/adminstyle.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/adminstyle.css">
 	<style type="text/css">
 		.FieldInfo {
 			color: rgb(251, 174, 44);

@@ -5,13 +5,15 @@
 <?php
 if(isset($_POST['submit'])) {
 	$Title = mysqli_real_escape_string($Connection, $_POST['Title']);
+	$Slug = mysqli_real_escape_string($Connection, $_POST['Slug']);
 	$Category = mysqli_real_escape_string($Connection, $_POST['Category']);
-	$Post = mysqli_real_escape_string($Connection, $_POST['Post']);
+	$Content = mysqli_real_escape_string($Connection, $_POST['Content']);
 	date_default_timezone_set("Asia/Ho_Chi_Minh");
 	$currentTime = time();
 	$dateTime = strftime("%d-%m-%Y", $currentTime);
 	$dateTime;
 	$Admin = "TuanIT";
+	/* $Admin = $_SESSION["UserName"]; */
 	$Image = $_FILES["Image"]["name"];
 	/* $Image = $_FILES["Image"];
 	echo "<pre>";
@@ -25,7 +27,7 @@ if(isset($_POST['submit'])) {
 		Redirect_to("addnewpost.php");
 	} else {
 		global $Connection;
-		$Query = "INSERT INTO admin_panel (datetime, title, category, author, images, post) VALUES ('$dateTime', '$Title', '$Category', '$Admin', '$Image', '$Post')";
+		$Query = "INSERT INTO post (idcategory, idadmin, title, slug, images, content, created) VALUES ('$Category', '$Admin', '$Title', '$Slug', '$Image', '$Content', '$dateTime')";
 		$Execute = mysqli_query($Connection, $Query);
 		move_uploaded_file($_FILES["Image"]["tmp_name"], $Target); // Chuyen hinh anh sang thu muc
 		if ($Execute) {
@@ -45,7 +47,8 @@ if(isset($_POST['submit'])) {
 	<title>Categories</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-	<link rel="stylesheet" href="css/adminstyle.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+	<link rel="stylesheet" href="./css/adminstyle.css">
 	<style type="text/css">
 		.FieldInfo {
 			color: rgb(251, 174, 44);
@@ -95,10 +98,11 @@ if(isset($_POST['submit'])) {
 				<li class="active"><a href="addnewpost.php"><span class="glyphicon glyphicon-list-alt"></span>&nbsp; Add New Post</a></li>
 				<li><a href="categories.php"><span class="glyphicon glyphicon-tags"></span>&nbsp; Categories</a></li>
 				<li><a href="admins.php"><span class="glyphicon glyphicon-user"></span>&nbsp; Manage Admins</a></li>
+				<li><a href="#"><span class="fas fa-users"></span>&nbsp; User</a></li>
 				<li>
 					<a href="comments.php"><span class="glyphicon glyphicon-comment"></span>&nbsp; Comments
 					<?php
-					$QueryApproved = "SELECT COUNT(*) FROM comments WHERE status = 'OFF'";
+					$QueryApproved = "SELECT COUNT(*) FROM comment WHERE status = 'OFF'";
 					$ExecuteApproved  = mysqli_query($Connection, $QueryApproved);
 					$RowApproved  = mysqli_fetch_array($ExecuteApproved );
 					$TotalApproved  = array_shift($RowApproved);
@@ -110,6 +114,7 @@ if(isset($_POST['submit'])) {
 					</a>
 				</li>
 				<li><a href="#"><span class="glyphicon glyphicon-equalizer"></span>&nbsp; Live Blog</a></li>
+				<li><a href="#"><span class="fas fa-compact-disc"></span>&nbsp; Media</a></li>
 				<li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span>&nbsp; Logout</a></li>
 			</ul>
 		</div> <!-- End Side Area -->
@@ -127,6 +132,10 @@ if(isset($_POST['submit'])) {
 							<input class="form-control" type="text" name="Title" id="title" placeholder="Title">
 						</div>
 						<div class="form-group">
+							<label for="slug"><span class="FieldInfo">Slug:</span></label>
+							<input class="form-control" type="text" name="Slug" id="slug" placeholder="Slug">
+						</div>
+						<div class="form-group">
 							<label for="categoryselect"><span class="FieldInfo">Category:</span></label>
 							<select class="form-control" name="Category" id="categoryselect" value="Category">
 								<?php
@@ -135,9 +144,9 @@ if(isset($_POST['submit'])) {
 								$Execute = mysqli_query($Connection, $ViewQuery);
 								while ($DataRows = mysqli_fetch_array($Execute)) {
 									$Id = $DataRows["id"];
-									$CategoryName = $DataRows["name"];
+									$CategoryName = $DataRows["namecategory"];
 									?>
-									<option value="<?php echo $CategoryName; ?>"><?php echo $CategoryName; ?></option>
+									<option value="<?= $Id; ?>"><?php echo $CategoryName; ?></option>
 									<?php
 								}
 								?>
@@ -148,8 +157,8 @@ if(isset($_POST['submit'])) {
 							<input type="file" class="form-control" name="Image" id="imageselect">
 						</div>
 						<div class="form-group">
-							<label for="postarea"><span class="FieldInfo">Post:</span></label>
-							<textarea class="form-control" name="Post" id="postarea" col="10" rows="20"></textarea>
+							<label for="postarea"><span class="FieldInfo">Content:</span></label>
+							<textarea class="form-control" name="Content" id="postarea" col="10" rows="20"></textarea>
 						</div>
 						<input type="submit" class="btn btn-success btn-block" name="submit" value="Add New Post">
 					</fieldset> 

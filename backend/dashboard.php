@@ -1,47 +1,16 @@
 <?php require_once 'include/db.php'; ?>
 <?php require_once 'include/sessions.php'; ?>
 <?php require_once 'include/functions.php'; ?>
-
-<?php
-if(isset($_POST['submit'])) {
-	$Category = mysqli_real_escape_string($Connection, $_POST['Category']);
-	date_default_timezone_set("Asia/Ho_Chi_Minh");
-	$currentTime = time();
-	$dateTime = strftime("%d-%m-%Y", $currentTime);
-	$dateTime;
-	$Admin = "TuanIT";
-	if(empty($Category)) {
-		$_SESSION["ErrorMessage"] = 'All Fields must be filled out';
-		Redirect_to("dashboard.php");
-	} else {
-		$Query = "INSERT INTO category (namecategory, created) VALUES ('$Category', '$dateTime')";
-		$Execute = mysqli_query($Connection, $Query);
-		if ($Execute) {
-			$_SESSION["SuccessMessage"] = "Category Added Successfully";
-			Redirect_to("categories.php");
-		} else {
-			$_SESSION["ErrorMessage"] = "Category faild to add";
-			Redirect_to("categories.php");
-		}
-	}
-}
-?>
+<?php /* Confirm_Login(); */ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Categories</title>
+	<title>Admin Dashboard</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 	<link rel="stylesheet" href="css/adminstyle.css">
-	<style type="text/css">
-		.FieldInfo {
-			color: rgb(251, 174, 44);
-			font-family: Bitter, Georgia, "Times New Roman", Times, serif;
-			font-size: 1.2em;
-		}
-	</style>
 </head>
 <body>
 <nav class="navbar navbar-default" role="navigation">
@@ -57,11 +26,12 @@ if(isset($_POST['submit'])) {
 	<a class="navbar-brand" href="blog.php">
 	   <img style="margin-top: -12px;" src="">
 	</a>
-	</div>
-	<div class="collapse navbar-collapse" id="collapse">
+		</div>
+		<div class="collapse navbar-collapse" id="collapse">
 		<ul class="nav navbar-nav">
 			<li><a href="#">Home</a></li>
-			<li class="active"><a href="blog.php" target="_blank">Blog</a></li>
+			<!-- <li class="active"><a href="blog.php" target="_blank">Blog</a></li> -->
+			<li class="active"><a href="index.php" target="_blank">Blog</a></li>
 			<li><a href="#">About Us</a></li>
 			<li><a href="#">Services</a></li>
 			<li><a href="#">Contact Us</a></li>
@@ -82,9 +52,9 @@ if(isset($_POST['submit'])) {
 		<div class="col-sm-2">
 			<h1>TuanIT</h1>
 			<ul id="Side_Menu" class="nav nav-pills nav-stacked">
-				<li><a href="dashboard.php"><span class="glyphicon glyphicon-home"></span>&nbsp; DashBoard</a></li>
-				<li><a href="addnewpost.php"><span class="glyphicon glyphicon-list-alt"></span>&nbsp; Add New Post</a></li>
-				<li class="active"><a href="categories.php"><span class="glyphicon glyphicon-tags"></span>&nbsp; Categories</a></li>
+				<li class="active"><a href="dashboard.php"><span class="glyphicon glyphicon-home"></span>&nbsp; DashBoard</a></li>
+				<li ><a href="addnewpost.php"><span class="glyphicon glyphicon-list-alt"></span>&nbsp; Add New Post</a></li>
+				<li><a href="categories.php"><span class="glyphicon glyphicon-tags"></span>&nbsp; Categories</a></li>
 				<li><a href="admins.php"><span class="glyphicon glyphicon-user"></span>&nbsp; Manage Admins</a></li>
 				<li><a href="#"><span class="fas fa-users"></span>&nbsp; User</a></li>
 				<li>
@@ -107,51 +77,91 @@ if(isset($_POST['submit'])) {
 			</ul>
 		</div> <!-- End Side Area -->
 		<div class="col-sm-10">
-			<h1>Manage Categories</h1>
-			<?php
+			<div>
+				<?php
 				echo Message();
 				echo SuccessMessage();
-			?> 
-			<div>
-				<form action="categories.php" method="Post">
-					<fieldset>
-						<div class="form-group">
-							<label for="categoryname"><span class="FieldInfo">Name:</span></label>
-							<input class="form-control" type="text" name="Category" id="categoryname" placeholder="Name">
-						</div>
-						<input type="submit" class="btn btn-success btn-block" name="submit" value="Add New Category">
-					</fieldset> 
-				</form>
+				?> 
 			</div>
+			<h1>Admin Dashboard</h1>
 			<div class="table-responsive">
 				<table class="table table-striped table-hover">
 					<tr>
-						<th>Sr No.</th>
-						<th>Category Name</th>	
-						<th>Created Date</th>
+						<th>No</th>
+						<th>Title</th>
+						<th>Slug</th>
+						<th>Category</th>
+						<th>Author</th>
+						<th>Images</th>
+						<th>Comments</th>
+						<th>Created</th>
 						<th>Action</th>
+						<th>Details</th>
 					</tr>
 					<?php
-					global $Connection;
-					$ViewQuery = "SELECT * FROM category";
+					$ViewQuery = "SELECT * FROM post, category WHERE post.idcategory = category.id";
 					$Execute = mysqli_query($Connection, $ViewQuery);
 					$SrNo = 0;
-					while ($DataRows = mysqli_fetch_array($Execute)) {
-						$Id = $DataRows["id"];
-						$CategoryName = $DataRows["namecategory"];
+					while($DataRows = mysqli_fetch_array($Execute)) {
+						$Id = $DataRows["idpost"];
+						$Category = $DataRows["namecategory"];
+						$Admin = $DataRows["idadmin"];
+						$Title = $DataRows["title"];
+						$Slug = $DataRows["slug"];
+						$Image = $DataRows["images"];
+						$Content = $DataRows["content"];
 						$DateTime = $DataRows["created"];
 						$SrNo++;
-						?>
-						<tr>
-							<td><?= $SrNo; ?></td>
-							<td><?= $CategoryName; ?></td>
-							<td><?= $DateTime; ?></td>	
-							<td>
-								<a href="deletecategories.php?id=<?= $Id; ?>">
-									<span class="btn btn-danger">Delete</span>
-								</a>
-							</td>
-						</tr>
+					?>
+					<tr>
+						<td><?= $SrNo; ?></td>
+						<td style="color: #535FE4;">
+							<?php 
+							if (strlen($Title) > 20) { $Title = substr($Title, 0, 20).'...'; }
+							echo $Title; 
+							?>
+						</td>
+						<td>
+						<?php 
+							if (strlen($Slug) > 20) { $Slug = substr($Slug, 0, 20).'...'; }
+							echo $Slug; 
+							?>
+						</td>
+						<td><?= $Category; ?></td>
+						<td><?= $Admin; ?></td>
+						<td><img src="../upload/<?= $Image; ?>"  width="120px;" height="50px;"></td>
+						<td>
+							<?php
+							$QueryApproved = "SELECT COUNT(*) FROM comment WHERE post = '$Id' AND status = 'ON'";
+							$ExecuteApproved = mysqli_query($Connection, $QueryApproved);
+							$RowApproved = mysqli_fetch_array($ExecuteApproved);
+							$TotalApproved = array_shift($RowApproved);
+							if ($TotalApproved > 0) { ?>
+								<span class="label label-success pull-right"><?= $TotalApproved; ?></span>
+							<?php
+							}
+							?>
+							
+							<?php
+							$QueryUnApproved = "SELECT COUNT(*) FROM comment WHERE post = '$Id' AND status = 'OFF'";
+							$ExecuteUnApproved  = mysqli_query($Connection, $QueryUnApproved);
+							$RowUnApproved  = mysqli_fetch_array($ExecuteUnApproved );
+							$TotalUnApproved  = array_shift($RowUnApproved);
+							if ($TotalUnApproved > 0) { ?>
+								<span class="label label-danger pull-left"><?= $TotalUnApproved; ?></span>
+							<?php
+							}
+							?>			
+						</td>
+						<td><?= $DateTime; ?></td>
+						<td>
+							<a href="editpost.php?edit=<?= $Id; ?>"><span class="btn btn-warning">Edit</span></a>
+							<a href="deletepost.php?delete=<?= $Id; ?>"><span class="btn btn-danger">Delete</span></a>
+						</td>
+						<td>
+							<a href="fullpost.php?id=<?= $Id; ?>" target="_blank"><span class="btn btn-primary">Live Preview</span></a>
+						</td>
+					</tr>
 					<?php
 					}
 					?>

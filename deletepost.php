@@ -3,10 +3,11 @@
 <?php require_once 'include/functions.php'; ?>
 
 <?php
-if(isset($_POST['submit'])) {
+if(isset($_POST['delete'])) {
 	$Title = mysqli_real_escape_string($Connection, $_POST['Title']);
+	$Slug = mysqli_real_escape_string($Connection, $_POST['Slug']);
 	$Category = mysqli_real_escape_string($Connection, $_POST['Category']);
-	$Post = mysqli_real_escape_string($Connection, $_POST['Post']);
+	$Content = mysqli_real_escape_string($Connection, $_POST['Content']);
 	date_default_timezone_set("Asia/Ho_Chi_Minh");
 	$currentTime = time();
 	$dateTime = strftime("%d-%m-%Y", $currentTime);
@@ -19,7 +20,7 @@ if(isset($_POST['submit'])) {
 	$Target = "upload/".basename($_FILES["Image"]["name"]);	
     global $Connection;
     $DeleteFromURL = $_GET['delete'];
-    $Query = "DELETE FROM admin_panel WHERE id = '$DeleteFromURL'";
+    $Query = "DELETE FROM post WHERE idpost = '$DeleteFromURL'";
     $Execute = mysqli_query($Connection, $Query);
     move_uploaded_file($_FILES["Image"]["tmp_name"], $Target); // Chuyen hinh anh sang thu muc
     if ($Execute) {
@@ -90,10 +91,11 @@ if(isset($_POST['submit'])) {
 				<li class="active"><a href="addnewpost.php"><span class="glyphicon glyphicon-list-alt"></span>&nbsp; Add New Post</a></li>
 				<li><a href="categories.php"><span class="glyphicon glyphicon-tags"></span>&nbsp; Categories</a></li>
 				<li><a href="admins.php"><span class="glyphicon glyphicon-user"></span>&nbsp; Manage Admins</a></li>
+				<li><a href="#"><span class="fas fa-users"></span>&nbsp; User</a></li>
 				<li>
 					<a href="comments.php"><span class="glyphicon glyphicon-comment"></span>&nbsp; Comments
 					<?php
-					$QueryApproved = "SELECT COUNT(*) FROM comments WHERE status = 'OFF'";
+					$QueryApproved = "SELECT COUNT(*) FROM comment WHERE status = 'OFF'";
 					$ExecuteApproved  = mysqli_query($Connection, $QueryApproved);
 					$RowApproved  = mysqli_fetch_array($ExecuteApproved );
 					$TotalApproved  = array_shift($RowApproved);
@@ -105,6 +107,7 @@ if(isset($_POST['submit'])) {
 					</a>
 				</li>
 				<li><a href="#"><span class="glyphicon glyphicon-equalizer"></span>&nbsp; Live Blog</a></li>
+				<li><a href="#"><span class="fas fa-compact-disc"></span>&nbsp; Media</a></li>
 				<li><a href="#"><span class="glyphicon glyphicon-log-out"></span>&nbsp; Logout</a></li>
 			</ul>
 		</div> <!-- End Side Area -->
@@ -117,24 +120,29 @@ if(isset($_POST['submit'])) {
 			<div>
 				<?php
 				$SearchQueryParameter = $_GET["delete"];
-				$Query = "SELECT * FROM admin_panel WHERE id = '$SearchQueryParameter'";
+				$Query = "SELECT * FROM post, category WHERE idpost = '$SearchQueryParameter' AND post.idcategory = category.id";
 				$ExecuteQuery = mysqli_query($Connection, $Query);
 				while ($DataRows = mysqli_fetch_array($ExecuteQuery)) {
-					$TitleUpdate = $DataRows["title"];
-					$CategoryUpdate = $DataRows["category"];
-					$ImageUpdate = $DataRows["images"];
-					$PostUpdate = $DataRows["post"];
+					$TitleDelete = $DataRows["title"];
+					$SlugDelete = $DataRows["slug"];
+					$CategoryDelete  = $DataRows["namecategory"];
+					$ImageDelete = $DataRows["images"];
+					$ContentDelete = $DataRows["content"];
 				}
 				?>
 				<form action="deletepost.php?delete=<?= $SearchQueryParameter; ?>" method="post" enctype="multipart/form-data">
 					<fieldset>
 						<div class="form-group">
 							<label for="title"><span class="FieldInfo">Title:</span></label>
-							<input disabled value="<?= $TitleUpdate; ?>" class="form-control" type="text" name="Title" id="title" placeholder="Title">
+							<input disabled value="<?= $TitleDelete; ?>" class="form-control" type="text" name="Title" id="title" placeholder="Title">
+						</div>
+						<div class="form-group">
+							<label for="slug"><span class="FieldInfo">Slug:</span></label>
+							<input value="<?= $SlugDelete; ?>" class="form-control" type="text" name="Slug" id="slug" placeholder="Slug">
 						</div>
 						<div class="form-group">
 							<span class="FieldInfo">Existing Category:</span>
-							<?= $CategoryUpdate; ?> <br>
+							<?= $CategoryDelete; ?> <br>
 							<label for="categoryselect"><span class="FieldInfo">Category:</span></label>
 							<select disabled class="form-control" name="Category" id="categoryselect" value="Category">
 								<?php
@@ -143,9 +151,9 @@ if(isset($_POST['submit'])) {
 								$Execute = mysqli_query($Connection, $ViewQuery);
 								while ($DataRows = mysqli_fetch_array($Execute)) {
 									$Id = $DataRows["id"];
-									$CategoryName = $DataRows["name"];
+									$CategoryName = $DataRows["namecategory"];
 									?>
-									<option value="<?php echo $CategoryName; ?>"><?php echo $CategoryName; ?></option>
+									<option value=""><?php echo $CategoryName; ?></option>
 									<?php
 								}
 								?>
@@ -153,7 +161,7 @@ if(isset($_POST['submit'])) {
 						</div>
 						<div class="form-group">
 							<span class="FieldInfo">Existing Image:</span>
-							<img src="upload/<?= $ImageUpdate; ?>" width="120px;" height="50px;"> <br>
+							<img src="upload/<?= $ImageDelete; ?>" width="120px;" height="50px;"> <br>
 							<label for="imageselect"><span class="FieldInfo">Select Image:</span></label>
 							<input disabled type="file" class="form-control" name="Image" id="imageselect">
 						</div>
@@ -161,10 +169,10 @@ if(isset($_POST['submit'])) {
 						<div class="form-group">
 							<label for="postarea"><span class="FieldInfo">Post:</span></label>
 							<textarea disabled class="form-control" name="Post" id="postarea" col="10" rows="20">
-								<?= $PostUpdate; ?>
+								<?= $ContentDelete; ?>
 							</textarea>
 						</div>
-						<input type="submit" class="btn btn-danger btn-block" name="submit" value="Delete" Post">
+						<input type="submit" class="btn btn-danger btn-block" name="delete" value="Delete" Post">
 					</fieldset> 
 				</form>
 			</div>	

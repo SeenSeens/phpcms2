@@ -60,7 +60,7 @@
 			/* Query when Search Button is Active */
 			if (isset($_GET['SearchButton'])) {
 				$Search = $_GET['Search'];				
-				$ViewQuery = "SELECT * FROM admin_panel WHERE datetime LIKE '%$Search%' OR title LIKE '%$Search%' OR category LIKE '%Search%' OR post LIKE '%$Search%'";
+				$ViewQuery = "SELECT * FROM post WHERE title LIKE '%$Search%'";
 			}
 			/* Query when Search Button is Active  blog.php?page=1 */ 
 			elseif(isset($_GET["page"])) {
@@ -70,21 +70,22 @@
 				} else {
 					$ShowPostFrom = ($Page*5)-5;
 				}
-				$ViewQuery = "SELECT * FROM admin_panel ORDER BY datetime DESC LIMIT $ShowPostFrom, 5";
+				$ViewQuery = "SELECT * FROM post LIMIT $ShowPostFrom, 5";
 			} 
 			/* The default query for blog.php page */ 
 			else {
-				$ViewQuery = "SELECT * FROM admin_panel ORDER BY datetime DESC LIMIT 0, 3";
+				$ViewQuery = "SELECT * FROM post LIMIT 0, 3";
 			}
 			$Execute = mysqli_query($Connection, $ViewQuery);
 			while($DataRows = mysqli_fetch_array($Execute)) {
-				$PostId = $DataRows["id"];
-				$DateTime = $DataRows["datetime"];
+				$PostId = $DataRows["idpost"];
+				$Category = $DataRows["idcategory"];
+				$Admin = $DataRows["idadmin"];
 				$Title = $DataRows["title"];
-				$Category = $DataRows["category"];
-				$Admin = $DataRows["author"];
+				$Slug = $DataRows["slug"];
 				$Image = $DataRows["images"];
-				$Post = $DataRows["post"];	
+				$Content = $DataRows["content"];
+				$DateTime = $DataRows["created"];
 			?>
 			<div class="blogpost thumbnail">
 				<img src="upload/<?= $Image; ?>" alt="" class="img-responsive img-rounded">
@@ -95,8 +96,8 @@
 					</p>
 					<p class="post">
 						<?php
-						if(strlen($Post) > 150) { $Post = substr($Post, 0, 150).'...'; }
-						echo $Post;
+						if(strlen($Content) > 150) { $Content = substr($Content, 0, 150).'...'; }
+						echo $Content;
 						?>
 					</p>
 				</div>
@@ -121,7 +122,7 @@
 				?>
 
 				<?php
-				$QueryPagination = "SELECT COUNT(*) FROM admin_panel";
+				$QueryPagination = "SELECT COUNT(*) FROM post";
 				$ExecutePagination = mysqli_query($Connection, $QueryPagination);
 				$RowPagination = mysqli_fetch_array($ExecutePagination);
 				$TotalPosts = array_shift($RowPagination);

@@ -3,30 +3,30 @@
 <?php require_once 'include/functions.php'; ?>
 
 <?php
-if(isset($_POST['submit'])) {
-	$Name = mysqli_real_escape_string($Connection, $_POST['Name']);
-	$Email = mysqli_real_escape_string($Connection, $_POST['Email']);
+if(isset($_POST['comment'])) {
 	$Comment = mysqli_real_escape_string($Connection, $_POST['Comment']);
 	date_default_timezone_set("Asia/Ho_Chi_Minh");
 	$currentTime = time();
 	$dateTime = strftime("%d-%m-%Y", $currentTime);
 	$dateTime;
-	$PostId = $_GET['id'];
-	if(empty($Name) || empty($Email) || empty($Comment)) {
+	$Admin = "TuanIT";
+	$User = "TuanITSSS";
+	$PostId = $_GET['idpost'];
+	if(empty($Comment)) {
 		$_SESSION["ErrorMessage"] = "All fields are required";
 	} elseif (strlen($Comment) > 500) {
 		$_SESSION["ErrorMessage"] = "Only 500  characters are allowed in comment";
 	} else {
 		global $Connection;
 		$PostIDFromURL = $_GET['id'];
-		$Query = "INSERT INTO comments (datetime, name, email, comment, status, admin_panel_id) VALUES ('$dateTime', '$Name', '$Email', '$Comment', 'OFF', '$PostIDFromURL')";
+		$Query = "INSERT INTO comment (iduser, idadmin, comments, status, idpost) VALUES ('$User', '$Admin', '$Comment', 'OFF', '$PostIDFromURL')";
 		$Execute = mysqli_query($Connection, $Query);
 		if ($Execute) {
 			$_SESSION["SuccessMessage"] = "Comment Submitted Successfully";
-			Redirect_to("fullpost.php?id={$PostId}");
+			Redirect_to("fullpost.php?id=<?php echo PostId; ?>");
 		} else {
 			$_SESSION["ErrorMessage"] = "Something Went Wrong. Try Again !";
-			Redirect_to("fullpost.php?id={$PostId}");
+			Redirect_to("fullpost.php?id=<?php echo PostId; ?>");
 		}
 	}
 }
@@ -112,20 +112,21 @@ if(isset($_POST['submit'])) {
 				global $Connection;
 				if(isset($_GET["SearchButton"])) {
 					$Search = $_GET["Search"];
-					$ViewQuery = "SELECT * FROM admin_panel WHERE title LIKE '%$Search%' OR category LIKE '%$Search%'";
+					$ViewQuery = "SELECT * FROM post WHERE title LIKE '%$Search%'";
 				} else {
                     $PostIDFromURL = $_GET["id"];
-					$ViewQuery = "SELECT * FROM admin_panel WHERE id = '$PostIDFromURL'";
+					$ViewQuery = "SELECT * FROM post WHERE idpost = '$PostIDFromURL'";
 				}
 				$Execute = mysqli_query($Connection, $ViewQuery);
 				while ($DataRows = mysqli_fetch_array($Execute)) {
-					$PostId = $DataRows["id"];
-					$DateTime = $DataRows["datetime"];
+					$PostId = $DataRows["idpost"];
+					$Category = $DataRows["idcategory"];
+					$Author = $DataRows["idadmin"];
 					$Title = $DataRows["title"];
-					$Category = $DataRows["category"];
-					$Admin = $DataRows["author"];
+					$Slug = $DataRows["slug"];
 					$Image = $DataRows["images"];
-					$Post = $DataRows["post"];			
+					$Post = $DataRows["content"];
+					$DateTime = $DataRows["created"];			
 				?>
 				<div class="thumbnail blogpost">
 					<img class="img-responsive img-rounded" src="upload/<?= $Image; ?>" >
@@ -148,39 +149,27 @@ if(isset($_POST['submit'])) {
 				<?php
 				global $Connection;
 				$PostIdFromComments = $_GET['id'];
-				$ExtractingCommentQuery = "SELECT * FROM comments WHERE admin_panel_id = '$PostIdFromComments' AND status = 'ON'";
+				$ExtractingCommentQuery = "SELECT * FROM comment WHERE idpost = '$PostIdFromComments' AND status = 'ON'";
 				$Execute = mysqli_query($Connection, $ExtractingCommentQuery);
 				while ($DataRows = mysqli_fetch_array($Execute)) {
-				    $CommentDate = $DataRows['datetime'];
-				    $CommentName = $DataRows['name'];
-				    $Comments = $DataRows['comment'];
+				    $Comments = $DataRows['comments'];
 				?>
 				<div class="CommentBlock">
 					<img style="margin-left: 10px; margin-top: 10px;" class="pull-left" src="images/comment.png" alt="" width="50px" height="50px">
-					<p style="margin-left: 90px" class="Comment-Info"><?= $CommentName ?></p>
-					<p style="margin-left: 90px" class="description"><?= $CommentDate; ?></p>
 					<p style="margin-left: 90px" class="Comment"><?= nl2br($Comments); ?></p>
 				</div>
 				<?php
 				}
-				?>
-				<span class="FieldInfo">Share your thoughts about this post</span>
+				?> <br>
+				<!-- <span class="FieldInfo">Share your thoughts about this post</span> -->
 				<div>
 					<form action="fullpost.php?id=<?= $PostId; ?>" method="post" enctype="multipart/form-data">
 						<fieldset>
 							<div class="form-group">
-								<label for="name"><span class="FieldInfo">Name:</span></label>
-								<input class="form-control" type="text" name="Name" id="name" placeholder="Name">
-							</div>
-							<div class="form-group">
-								<label for="email"><span class="FieldInfo">Email:</span></label>
-								<input class="form-control" type="email" name="Email" id="email" placeholder="Email">
-							</div>
-							<div class="form-group">
 								<label for="commentarea"><span class="FieldInfo">Comment:</span></label>
 								<textarea class="form-control" name="Comment" id="commentarea"></textarea>
 							</div>
-							<input type="submit" class="btn btn-primary" name="submit" value="Comments">
+							<input type="submit" class="btn btn-primary" name="comment" value="Comments">
 						</fieldset> 
 					</form>
 				</div>

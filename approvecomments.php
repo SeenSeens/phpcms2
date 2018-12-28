@@ -5,7 +5,7 @@
 <?php
 if (isset($_GET["id"])) {
 	$IdFromURL = $_GET["id"];
-	$Query = "UPDATE comments SET status = 'ON' WHERE id = '$IdFromURL'";
+	$Query = "UPDATE comment SET status = 'ON' WHERE idcomment = '$IdFromURL'";
 	$Exectute = mysqli_query($Connection, $Query);
 	if ($Exectute) {
 		$_SESSION["SuccessMessage"] = "Comment Approved Successfully!!!";

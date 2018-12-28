@@ -3,22 +3,22 @@
 <?php require_once 'include/functions.php'; ?>
 
 <?php
-if(isset($_POST['submit'])) {
-	$Name = mysqli_real_escape_string($Connection, $_POST['Name']);
-	$Email = mysqli_real_escape_string($Connection, $_POST['Email']);
+if(isset($_POST['comment'])) {
 	$Comment = mysqli_real_escape_string($Connection, $_POST['Comment']);
 	date_default_timezone_set("Asia/Ho_Chi_Minh");
 	$currentTime = time();
 	$dateTime = strftime("%d-%m-%Y", $currentTime);
-	$dateTime;
-	$PostId = $_GET['id'];
-	if(empty($Name) || empty($Email) || empty($Comment)) {
+    $dateTime;
+    $Admin = "TuanIT";
+	$User = "TuanITSSS";
+	$PostId = $_GET['idpost'];
+	if(empty($Comment)) {
 		$_SESSION["ErrorMessage"] = "All fields are required";
 	} elseif (strlen($Comment) > 500) {
 		$_SESSION["ErrorMessage"] = "Only 500  characters are allowed in comment";
 	} else {
 		$PostIDFromURL = $_GET['id'];
-		$Query = "INSERT INTO comments (datetime, name, email, comment, status, admin_panel_id) VALUES ('$dateTime', '$Name', '$Email', '$Comment', 'OFF', '$PostIDFromURL')";
+		$Query = "INSERT INTO comment (iduser, idadmin, comments, status, idpost) VALUES ('$User', '$Admin', '$Comment', 'OFF', '$PostIDFromURL')";
 		$Execute = mysqli_query($Connection, $Query);
 		if ($Execute) {
 			$_SESSION["SuccessMessage"] = "Comment Submitted Successfully";
@@ -45,11 +45,10 @@ if(isset($_POST['submit'])) {
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
         <!-- Custom fonts for this template -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' type='text/css'>
+        <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&amp;subset=vietnamese" rel="stylesheet">
         <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' type='text/css'>
         <!-- Custom styles for this template -->
         <link rel="stylesheet" href="css/clean-blog.min.css">
-        <link rel="stylesheet" href="css/stylepost.css">
     </head>
 <body>
 
@@ -83,14 +82,17 @@ if(isset($_POST['submit'])) {
 <!-- Page Header -->
 <?php
 $PostIDFromURL = $_GET["id"];
-$ViewQuery = "SELECT * FROM admin_panel WHERE id = '$PostIDFromURL'";
+$ViewQuery = "SELECT * FROM post WHERE idpost = '$PostIDFromURL'";
 $Execute = mysqli_query($Connection, $ViewQuery);
 while ($DataRows = mysqli_fetch_array($Execute)) {
-    $PostId = $DataRows["id"];
-    $DateTime = $DataRows["datetime"];
+    $PostId = $DataRows["idpost"];
+    $Category = $DataRows["idcategory"];
+    $Admin = $DataRows["idadmin"];
     $Title = $DataRows["title"];
-    $Admin = $DataRows["author"];
+    $Slug = $DataRows["slug"];
     $Image = $DataRows["images"];
+    $Content = $DataRows["content"];
+    $DateTime = $DataRows["created"];
 ?>
 <header class="masthead" style="background-image: url('upload/<?= $Image; ?>');">
     <div class="overlay"></div>
@@ -119,18 +121,19 @@ while ($DataRows = mysqli_fetch_array($Execute)) {
             <div class="col-lg-11 col-md-10 mx-auto">
                 <?php
                 $PostIDFromURL = $_GET["id"];
-                $ViewQuery = "SELECT * FROM admin_panel WHERE id = '$PostIDFromURL'";
+                $ViewQuery = "SELECT * FROM post WHERE idpost = '$PostIDFromURL'";
                 $Execute = mysqli_query($Connection, $ViewQuery);
                 while ($DataRows = mysqli_fetch_array($Execute)) {
-					$PostId = $DataRows["id"];
-					$DateTime = $DataRows["datetime"];
-					$Title = $DataRows["title"];
-					$Category = $DataRows["category"];
-					$Admin = $DataRows["author"];
-					$Image = $DataRows["images"];
-					$Post = $DataRows["post"];			
+					$PostId = $DataRows["idpost"];
+                    $Category = $DataRows["idcategory"];
+                    $Admin = $DataRows["idadmin"];
+                    $Title = $DataRows["title"];
+                    $Slug = $DataRows["slug"];
+                    $Image = $DataRows["images"];
+                    $Content = $DataRows["content"];
+                    $DateTime = $DataRows["created"];			
                 ?>
-                <p><?= $Post; ?></p>
+                <p><?= $Content; ?></p>
                 <?php
                 }
                 ?>
@@ -148,30 +151,21 @@ while ($DataRows = mysqli_fetch_array($Execute)) {
             <div class="card-body">
                 <form action="post.php?id=<?= $PostId; ?>" method="post" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="name"><span class="FieldInfo">Name:</span></label>
-                        <input class="form-control" type="text" name="Name" id="name" placeholder="Name">
-                    </div>
-                    <div class="form-group">
-                        <label for="email"><span class="FieldInfo">Email:</span></label>
-                        <input class="form-control" type="email" name="Email" id="email" placeholder="Email">
-                    </div>
-                    <div class="form-group">
                         <label for="commentarea"><span class="FieldInfo">Comment:</span></label>
                         <textarea class="form-control" rows="3" placeholder="Write something here" id="commentarea" name="Comment"></textarea>
                     </div>
-                    <button type="submit" name="submit" class="btn btn-primary">Comments</button>
+                    <button type="submit" name="comment" class="btn btn-primary">Comments</button>
                 </form>
             </div>
         </div>
         <!-- Single Comment -->
         <?php
         $PostIdFromComments = $_GET['id'];
-        $ExtractingCommentQuery = "SELECT * FROM comments WHERE admin_panel_id = '$PostIdFromComments'";
+        $ExtractingCommentQuery = "SELECT * FROM comment WHERE idpost = '$PostIdFromComments'";
         $Execute = mysqli_query($Connection, $ExtractingCommentQuery);
         while ($DataRows = mysqli_fetch_array($Execute)) {
-            $CommentDate = $DataRows['datetime'];
-            $CommentName = $DataRows['name'];
-            $Comments = $DataRows['comment'];
+            $CommentName = $DataRows['iduser'];
+            $Comments = $DataRows['comments'];
         ?>
         <div class="media mb-4">
             <img class="d-flex mr-3 rounded-circle" src="images/comment.png" alt="">

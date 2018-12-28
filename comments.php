@@ -9,7 +9,8 @@
 	<title>Admin Dashboard</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-	<link rel="stylesheet" href="css/adminstyle.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/adminstyle.css">
 </head>
 <body>
 <nav class="navbar navbar-default" role="navigation">
@@ -54,10 +55,11 @@
 				<li><a href="addnewpost.php"><span class="glyphicon glyphicon-list-alt"></span>&nbsp; Add New Post</a></li>
 				<li><a href="categories.php"><span class="glyphicon glyphicon-tags"></span>&nbsp; Categories</a></li>
 				<li><a href="admins.php"><span class="glyphicon glyphicon-user"></span>&nbsp; Manage Admins</a></li>
+                <li><a href="#"><span class="fas fa-users"></span>&nbsp; User</a></li>
                 <li>
 					<a href="comments.php"><span class="glyphicon glyphicon-comment"></span>&nbsp; Comments
 					<?php
-					$QueryApproved = "SELECT COUNT(*) FROM comments WHERE status = 'OFF'";
+					$QueryApproved = "SELECT COUNT(*) FROM comment WHERE status = 'OFF'";
 					$ExecuteApproved  = mysqli_query($Connection, $QueryApproved);
 					$RowApproved  = mysqli_fetch_array($ExecuteApproved );
 					$TotalApproved  = array_shift($RowApproved);
@@ -69,6 +71,7 @@
 					</a>
 				</li>
 				<li><a href="#"><span class="glyphicon glyphicon-equalizer"></span>&nbsp; Live Blog</a></li>
+                <li><a href="#"><span class="fas fa-compact-disc"></span>&nbsp; Media</a></li>
 				<li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span>&nbsp; Logout</a></li>
 			</ul>
 		</div> <!-- End Side Area -->
@@ -84,32 +87,27 @@
             <table class="table table-striped table-hover">
                 <tr>
                     <th>No.</th>
-                    <th>Name</th>
-                    <th>Date</th>
+                    <th>Commentator</th>
                     <th>Comment</th>
                     <th>Approve By</th>
                     <th>Delete Comment</th>
                     <th>Details</th>
                 </tr>
                 <?php
-                $Query = "SELECT * FROM comments WHERE status = 'OFF' ORDER BY datetime DESC";
+                $Query = "SELECT * FROM comment WHERE status = 'OFF'";
                 $Execute = mysqli_query($Connection, $Query);
                 $SrNo = 0;
                 while ($DataRows = mysqli_fetch_array($Execute)) {
-                    $CommentId = $DataRows['id'];
-                    $DateTimeOfComment = $DataRows['datetime'];
-                    $PersonName = $DataRows['name'];
-                    $PersonComment = $DataRows['comment'];
-                    //$ApprovedBy = $DataRows['approvedby'];
-                    $CommentedPostId = $DataRows['admin_panel_id'];
+                    $CommentId = $DataRows['idcomment'];
+                    $UserComment = $DataRows['iduser'];
+                    $AdminApply = $DataRows['idadmin'];
+                    $PersonComment = $DataRows['comments'];
                     $SrNo++;
-                    // if (strlen($PersonComment) > 18) {$PersonComment = substr($PersonComment, 0, 18).'...';}
-                    if (strlen($PersonName) > 10) {$PersonName = substr($PersonName, 0, 10).'...';}
+                    if (strlen($UserComment) > 10) {$UserComment = substr($UserComment, 0, 10).'...';}
                 ?>
                 <tr>
                     <td><?= htmlentities($SrNo); ?></td>
-                    <td style="color: #5e5eff;"><?php echo htmlentities($PersonName); ?></td>
-                    <td><?= htmlentities($DateTimeOfComment); ?></td>
+                    <td style="color: #5e5eff;"><?php echo htmlentities($UserComment); ?></td>
                     <td><?= htmlentities($PersonComment); ?></td>
                     <td><a href="approvecomments.php?id=<?= $CommentId; ?>"><span class="btn btn-success">Approve</span></a></td>
                     <td><a href="deletecomments.php?id=<?= $CommentId ?>"><span class="btn btn-danger">Delete</span></a></td>
@@ -126,7 +124,6 @@
                 <tr>
                     <th>No.</th>
                     <th>Name</th>
-                    <th>Date</th>
                     <th>Comment</th>
                     <th>Approve By</th>
                     <th>Revert Approve</th>
@@ -135,27 +132,22 @@
                 </tr>
                 <?php
                 $Admin = "TruongTuanIT";
-                $Query = "SELECT * FROM comments WHERE status = 'ON' ORDER BY datetime DESC";
+                $Query = "SELECT * FROM comment WHERE status = 'ON'";
                 $Execute = mysqli_query($Connection, $Query);
                 $SrNo = 0;
                 while ($DataRows = mysqli_fetch_array($Execute)) {
-                    $CommentId = $DataRows['id'];
-                    $DateTimeOfComment = $DataRows['datetime'];
-                    $PersonName = $DataRows['name'];
-                    $PersonComment = $DataRows['comment'];
-                    // $ApprovedBy = $DataRows['approvedby'];
-                    $CommentedPostId = $DataRows['admin_panel_id'];
+                    $CommentId = $DataRows['idcomment'];
+                    $UserComment = $DataRows['iduser'];
+                    $AdminApply = $DataRows['idadmin'];
+                    $PersonComment = $DataRows['comments'];;
                     $SrNo++;
-                    // if (strlen($PersonComment) > 18) {$PersonComment = substr($PersonComment, 0, 18).'...';}
-                    if (strlen($PersonName) > 10) {$PersonName = substr($PersonName, 0, 10).'...';}
+                    if (strlen($UserComment) > 10) {$UserComment = substr($UserComment, 0, 10).'...';}
                 ?>
                 <tr>
                     <td><?php echo htmlentities($SrNo); ?></td>
-                    <td style="color: #5e5eff;"><?= htmlentities($PersonName); ?></td>
-                    <td><?= htmlentities($DateTimeOfComment); ?></td>
+                    <td style="color: #5e5eff;"><?= htmlentities($UserComment); ?></td>
                     <td><?= htmlentities($PersonComment); ?></td>
                     <td><?= $Admin; ?></td>
-                    <!-- <td><?= htmlentities($ApprovedBy); ?></td> -->
                     <td><a href="disapprovecomments.php?id=<?= $CommentId; ?>"><span class="btn btn-warning">Dis-Approve</span></a></td>
                     <td><a href="deletecomments.php?id=<?= $CommentId ?>"><span class="btn btn-danger">Delete</span></a></td>
                     <td><a href="fullpost.php?id=<?= $CommentedPostId; ?>" target = "_blank"><span class="btn btn-primary">Live Preview</span></a></td>

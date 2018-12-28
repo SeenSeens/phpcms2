@@ -2,6 +2,7 @@
 <?php require_once 'include/sessions.php'; ?>
 <?php require_once 'include/functions.php'; ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -35,13 +36,16 @@
                     <a class="nav-link" href="index.php">Home</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="category.php">Categories</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="about.php">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="post.html">Sample Post</a>
+                    <a class="nav-link" href="contact.php">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="contact.html">Contact</a>
+                    <a class="nav-link" href="loginuser.php">Login</a>
                 </li>
             </ul>
         </div>
@@ -69,7 +73,7 @@
         <div class="col-lg-8 col-md-10 mx-auto">
             <?php
             /* TÌM TỔNG SỐ RECORDS */
-            $ViewQuery = "SELECT COUNT(*) AS total FROM admin_panel ORDER BY datetime DESC";
+            $ViewQuery = "SELECT COUNT(*) AS total FROM post";
             $Execute = mysqli_query($Connection, $ViewQuery);
             $row = mysqli_fetch_array($Execute);
             $total_records = $row['total'];
@@ -88,19 +92,21 @@
             }
             /* Tìm Start */
             $start = ($current_page - 1) * $limit;
-            $QueryPage = "SELECT * FROM admin_panel ORDER BY datetime DESC LIMIT $start, $limit";
+            $QueryPage = "SELECT * FROM post LIMIT $start, $limit";
             $ExecutePage = mysqli_query($Connection, $QueryPage);
             while ($DataRows = mysqli_fetch_array($ExecutePage)) {
-                $PostId = $DataRows["id"];
-                $DateTime = $DataRows["datetime"];
-                $Title = $DataRows["title"];
-                $Category = $DataRows["category"];
-                $Admin = $DataRows["author"];
-                $Image = $DataRows["images"];
-                $Post = $DataRows["post"];			
+                $PostId = $DataRows["idpost"];
+				$Category = $DataRows["idcategory"];
+				$Admin = $DataRows["idadmin"];
+				$Title = $DataRows["title"];
+				$Slug = $DataRows["slug"];
+				$Image = $DataRows["images"];
+				$Content = $DataRows["content"];
+				$DateTime = $DataRows["created"];		
             ?>
             <div class="post-preview">
                 <a href="post.php?id=<?= $PostId; ?>">
+                <img class="card-img-top img-responsive img-rounded" src="upload/<?= $Image; ?>" alt="">
                     <h2 class="post-title"><?= htmlentities($Title); ?></h2>
                     <h3 class="post-subtitle"></h3>
                 </a>
@@ -113,26 +119,30 @@
             }
             ?>
             <!-- Pager -->
-            <!-- <div class="clearfix">
-                <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
-            </div> -->
-            <div class="pagination">
+            <div class="pagination clearfix">
             <?php
             /* nếu current_page > 1 và total_page > 1 mới hiển thị nút prev */
-            if ($current_page > 1 && $total_page > 1){
-                echo '<a href="index.php?page='.($current_page-1).'">Prev</a> | ';
+            if ($current_page > 1 && $total_page > 1){ ?>
+                <a class="page-link" href="index.php?page=<?= $current_page-1; ?>">&larr; Older</a>
+            <?php
             }
             for ($i = 1; $i <= $total_page; $i++){
-                if ($i == $current_page){
-                    echo '<span>'.$i.'</span> | ';
+                if ($i == $current_page) { ?>
+                    <!-- echo '<span>'.$i.'</span> | '; -->
+
+                <?php
                 }
                 else{
-                    echo '<a href="index.php?page='.$i.'">'.$i.'</a> | ';
+                ?>
+                    <!-- echo '<a href="index.php?page='.$i.'">'.$i.'</a> | '; -->
+                <?php
                 }
             }
             // nếu current_page < $total_page và total_page > 1 mới hiển thị nút Next
-            if ($current_page < $total_page && $total_page > 1){
-                echo '<a href="index.php?page='.($current_page+1).'">Next</a> | ';
+            if ($current_page < $total_page && $total_page > 1){ ?>
+                <!-- echo '<a href="index.php?page='.($current_page+1).'">Next</a> | '; -->
+                <a class="page-link" href="index.php?page=<?= $current_page+1; ?>">Newer &rarr;</a>
+            <?php
             }
             ?>
             </div>
