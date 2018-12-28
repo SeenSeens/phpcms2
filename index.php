@@ -68,9 +68,29 @@
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
             <?php
-            $ViewQuery = "SELECT * FROM admin_panel";
+            /* TÌM TỔNG SỐ RECORDS */
+            $ViewQuery = "SELECT COUNT(*) AS total FROM admin_panel ORDER BY datetime DESC";
             $Execute = mysqli_query($Connection, $ViewQuery);
-            while ($DataRows = mysqli_fetch_array($Execute)) {
+            $row = mysqli_fetch_array($Execute);
+            $total_records = $row['total'];
+            /* TÌM LIMIT VÀ CURRENT_PAGE */
+            $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+            $limit = 5;
+            /* TÍNH TOÁN TOTAL_PAGE VÀ START
+            tổng số trang */
+            $total_page = ceil($total_records / $limit);
+            /* Giới hạn current_page trong khoảng 1 đến total_page */
+            if ($current_page > $total_page){
+                $current_page = $total_page;
+            }
+            else if ($current_page < 1){
+                $current_page = 1;
+            }
+            /* Tìm Start */
+            $start = ($current_page - 1) * $limit;
+            $QueryPage = "SELECT * FROM admin_panel ORDER BY datetime DESC LIMIT $start, $limit";
+            $ExecutePage = mysqli_query($Connection, $QueryPage);
+            while ($DataRows = mysqli_fetch_array($ExecutePage)) {
                 $PostId = $DataRows["id"];
                 $DateTime = $DataRows["datetime"];
                 $Title = $DataRows["title"];
@@ -93,8 +113,28 @@
             }
             ?>
             <!-- Pager -->
-            <div class="clearfix">
+            <!-- <div class="clearfix">
                 <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+            </div> -->
+            <div class="pagination">
+            <?php
+            /* nếu current_page > 1 và total_page > 1 mới hiển thị nút prev */
+            if ($current_page > 1 && $total_page > 1){
+                echo '<a href="index.php?page='.($current_page-1).'">Prev</a> | ';
+            }
+            for ($i = 1; $i <= $total_page; $i++){
+                if ($i == $current_page){
+                    echo '<span>'.$i.'</span> | ';
+                }
+                else{
+                    echo '<a href="index.php?page='.$i.'">'.$i.'</a> | ';
+                }
+            }
+            // nếu current_page < $total_page và total_page > 1 mới hiển thị nút Next
+            if ($current_page < $total_page && $total_page > 1){
+                echo '<a href="index.php?page='.($current_page+1).'">Next</a> | ';
+            }
+            ?>
             </div>
         </div>
     </div>
