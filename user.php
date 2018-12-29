@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Admin Dashboard</title>
+	<title>User</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
@@ -52,11 +52,11 @@
 		<div class="col-sm-2">
 			<h1>TuanIT</h1>
 			<ul id="Side_Menu" class="nav nav-pills nav-stacked">
-				<li class="active"><a href="dashboard.php"><span class="glyphicon glyphicon-home"></span>&nbsp; DashBoard</a></li>
+				<li><a href="dashboard.php"><span class="glyphicon glyphicon-home"></span>&nbsp; DashBoard</a></li>
 				<li ><a href="addnewpost.php"><span class="glyphicon glyphicon-list-alt"></span>&nbsp; Add New Post</a></li>
 				<li><a href="categories.php"><span class="glyphicon glyphicon-tags"></span>&nbsp; Categories</a></li>
 				<li><a href="admins.php"><span class="glyphicon glyphicon-user"></span>&nbsp; Manage Admins</a></li>
-				<li><a href="user.php"><span class="fas fa-users"></span>&nbsp; User</a></li>
+				<li class="active"><a href="user.php"><span class="fas fa-users"></span>&nbsp; User</a></li>
 				<li>
 					<a href="comments.php"><span class="glyphicon glyphicon-comment"></span>&nbsp; Comments
 					<?php
@@ -83,84 +83,28 @@
 				echo SuccessMessage();
 				?> 
 			</div>
-			<h1>Admin Dashboard</h1>
+			<h1>User Dashboard</h1>
 			<div class="table-responsive">
 				<table class="table table-striped table-hover">
 					<tr>
 						<th>No</th>
-						<th>Title</th>
-						<th>Slug</th>
-						<th>Category</th>
-						<th>Author</th>
-						<th>Images</th>
-						<th>Comments</th>
-						<th>Created</th>
-						<th>Action</th>
-						<th>Details</th>
+                        <th>Username</th>
+                        <th>Email</th>
 					</tr>
 					<?php
-					$ViewQuery = "SELECT * FROM post, category WHERE post.idcategory = category.id";
+					$ViewQuery = "SELECT * FROM user";
 					$Execute = mysqli_query($Connection, $ViewQuery);
 					$SrNo = 0;
 					while($DataRows = mysqli_fetch_array($Execute)) {
-						$Id = $DataRows["idpost"];
-						$Category = $DataRows["namecategory"];
-						$Admin = $DataRows["idadmin"];
-						$Title = $DataRows["title"];
-						$Slug = $DataRows["slug"];
-						$Image = $DataRows["images"];
-						$Content = $DataRows["content"];
-						$DateTime = $DataRows["created"];
+                        $IdUser = $DataRows["iduser"];
+                        $Username = $DataRows["username"];
+                        $Email = $DataRows["email"];
 						$SrNo++;
 					?>
 					<tr>
 						<td><?= $SrNo; ?></td>
-						<td style="color: #535FE4;">
-							<?php 
-							if (strlen($Title) > 20) { $Title = substr($Title, 0, 20).'...'; }
-							echo $Title; 
-							?>
-						</td>
-						<td>
-						<?php 
-							if (strlen($Slug) > 20) { $Slug = substr($Slug, 0, 20).'...'; }
-							echo $Slug; 
-							?>
-						</td>
-						<td><?= $Category; ?></td>
-						<td><?= $Admin; ?></td>
-						<td><img src="upload/<?= $Image; ?>"  width="120px;" height="50px;"></td>
-						<td>
-							<?php
-							$QueryApproved = "SELECT COUNT(*) FROM comment WHERE idpost = '$Id' AND status = 'ON'";
-							$ExecuteApproved = mysqli_query($Connection, $QueryApproved);
-							$RowApproved = mysqli_fetch_array($ExecuteApproved);
-							$TotalApproved = array_shift($RowApproved);
-							if ($TotalApproved > 0) { ?>
-								<span class="label label-success pull-right"><?= $TotalApproved; ?></span>
-							<?php
-							}
-							?>
-							
-							<?php
-							$QueryUnApproved = "SELECT COUNT(*) FROM comment WHERE idpost = '$Id' AND status = 'OFF'";
-							$ExecuteUnApproved  = mysqli_query($Connection, $QueryUnApproved);
-							$RowUnApproved  = mysqli_fetch_array($ExecuteUnApproved );
-							$TotalUnApproved  = array_shift($RowUnApproved);
-							if ($TotalUnApproved > 0) { ?>
-								<span class="label label-danger pull-left"><?= $TotalUnApproved; ?></span>
-							<?php
-							}
-							?>			
-						</td>
-						<td><?= $DateTime; ?></td>
-						<td>
-							<a href="editpost.php?edit=<?= $Id; ?>"><span class="btn btn-warning">Edit</span></a>
-							<a href="deletepost.php?delete=<?= $Id; ?>"><span class="btn btn-danger">Delete</span></a>
-						</td>
-						<td>
-							<a href="fullpost.php?id=<?= $Id; ?>" target="_blank"><span class="btn btn-primary">Live Preview</span></a>
-						</td>
+                        <td><?= $Username; ?></td>
+                        <td><?= $Email; ?></td>
 					</tr>
 					<?php
 					}
