@@ -186,7 +186,7 @@ if(isset($_POST['delete'])) {
 </div>
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=1qa5t0dn0b46dukvifb2b500e7ausw3qelzj0jie038xyejf"></script>
+<script src="tinymce/js/tinymce/tinymce.min.js"></script>
 <script src="js/tiny.js"></script>
 </body>
 </html>
