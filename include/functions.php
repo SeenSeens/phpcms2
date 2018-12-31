@@ -7,18 +7,18 @@ function Redirect_to($New_Location) {
 	exit();
 }
 
-function Login_Attempt($UserName, $Password) {
+function Login_Attempt($Username, $Password) {
 	$Connection;
-	$Query = "SELECT username, password FROM registration WHERE username='$UserName' AND password='$Password'";
+	$Query = "SELECT * FROM admin WHERE nameadmin='$Username' AND password='$Password'";
 	$Execute = mysqli_query($Connection, $Query);
-	if($admin = mysqli_fetch_assoc($Execute)) {
+	if($admin = mysql_num_rows($Execute)) {
 		return $admin;
 	} else {
 		return null;
 	}
 }
 
-function Login() {
+/* function Login() {
 	if (isset($_SESSION["User_Id"])) {
 		return true;
 	}
@@ -29,6 +29,6 @@ function Confirm_Login() {
 		$_SESSION["ErrorMessage"] = "Login Required!";
 		Redirect_to("login.php");
 	}
-}
+} */
 
 ?>

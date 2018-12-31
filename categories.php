@@ -13,12 +13,8 @@ if(isset($_POST['submit'])) {
 	if(empty($Category)) {
 		$_SESSION["ErrorMessage"] = 'All Fields must be filled out';
 		Redirect_to("dashboard.php");
-	} /*elseif (strlen($Category) > 4 ) {
-		$_SESSION["ErrorMessage"] = "Too long name";
-		Redirect_to("Categories.php");
-	}*/ else {
-		global $Connection;
-		$Query = "INSERT INTO category(datetime, name, 	creatername) VALUES ('$dateTime', '$Category', '$Admin')";
+	} else {
+		$Query = "INSERT INTO category (namecategory, created) VALUES ('$Category', '$dateTime')";
 		$Execute = mysqli_query($Connection, $Query);
 		if ($Execute) {
 			$_SESSION["SuccessMessage"] = "Category Added Successfully";
@@ -35,8 +31,9 @@ if(isset($_POST['submit'])) {
 <head>
 	<meta charset="UTF-8">
 	<title>Categories</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="css/fontawesome.css">
 	<link rel="stylesheet" href="css/adminstyle.css">
 	<style type="text/css">
 		.FieldInfo {
@@ -89,10 +86,11 @@ if(isset($_POST['submit'])) {
 				<li><a href="addnewpost.php"><span class="glyphicon glyphicon-list-alt"></span>&nbsp; Add New Post</a></li>
 				<li class="active"><a href="categories.php"><span class="glyphicon glyphicon-tags"></span>&nbsp; Categories</a></li>
 				<li><a href="admins.php"><span class="glyphicon glyphicon-user"></span>&nbsp; Manage Admins</a></li>
+				<li><a href="#"><span class="fas fa-users"></span>&nbsp; User</a></li>
 				<li>
 					<a href="comments.php"><span class="glyphicon glyphicon-comment"></span>&nbsp; Comments
 					<?php
-					$QueryApproved = "SELECT COUNT(*) FROM comments WHERE status = 'OFF'";
+					$QueryApproved = "SELECT COUNT(*) FROM comment WHERE status = 'OFF'";
 					$ExecuteApproved  = mysqli_query($Connection, $QueryApproved);
 					$RowApproved  = mysqli_fetch_array($ExecuteApproved );
 					$TotalApproved  = array_shift($RowApproved);
@@ -104,6 +102,7 @@ if(isset($_POST['submit'])) {
 					</a>
 				</li>
 				<li><a href="#"><span class="glyphicon glyphicon-equalizer"></span>&nbsp; Live Blog</a></li>
+				<li><a href="#"><span class="fas fa-compact-disc"></span>&nbsp; Media</a></li>
 				<li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span>&nbsp; Logout</a></li>
 			</ul>
 		</div> <!-- End Side Area -->
@@ -128,9 +127,8 @@ if(isset($_POST['submit'])) {
 				<table class="table table-striped table-hover">
 					<tr>
 						<th>Sr No.</th>
-						<th>Date & Time</th>
 						<th>Category Name</th>	
-						<th>Creater Name</th>
+						<th>Created Date</th>
 						<th>Action</th>
 					</tr>
 					<?php
@@ -140,16 +138,14 @@ if(isset($_POST['submit'])) {
 					$SrNo = 0;
 					while ($DataRows = mysqli_fetch_array($Execute)) {
 						$Id = $DataRows["id"];
-						$DateTime = $DataRows["datetime"];
-						$CategoryName = $DataRows["name"];
-						$CreaterName = $DataRows["creatername"];
+						$CategoryName = $DataRows["namecategory"];
+						$DateTime = $DataRows["created"];
 						$SrNo++;
 						?>
 						<tr>
 							<td><?= $SrNo; ?></td>
-							<td><?= $DateTime; ?></td>
 							<td><?= $CategoryName; ?></td>
-							<td><?= $CreaterName; ?></td>
+							<td><?= $DateTime; ?></td>	
 							<td>
 								<a href="deletecategories.php?id=<?= $Id; ?>">
 									<span class="btn btn-danger">Delete</span>
@@ -168,7 +164,7 @@ if(isset($_POST['submit'])) {
 <div class="footer">
 	<p style="color: #838383; text-align: center;">&copy; &nbsp;2018</p>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 </body>
 </html>

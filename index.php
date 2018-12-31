@@ -2,6 +2,7 @@
 <?php require_once 'include/sessions.php'; ?>
 <?php require_once 'include/functions.php'; ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -11,13 +12,12 @@
         <meta name="author" content="">
         <title>Truong Tuan IT</title>
         <!-- Bootstrap core CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-        <!-- Custom fonts for this template -->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/bootstrap4.min.css">
+        <link rel="stylesheet" href="css/fontawesome.css">
+        <link rel="stylesheet" href="css/lora.css">
+        <link rel="stylesheet" href="css/opensans.css">
         <!-- Custom styles for this template -->
-        <link href="css/clean-blog.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/clean-blog.min.css">
     </head>
 <body>
 
@@ -35,13 +35,16 @@
                     <a class="nav-link" href="index.php">Home</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="category.php">Categories</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="about.php">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="post.html">Sample Post</a>
+                    <a class="nav-link" href="contact.php">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="contact.html">Contact</a>
+                    <a class="nav-link" href="loginuser.php">Login</a>
                 </li>
             </ul>
         </div>
@@ -69,7 +72,7 @@
         <div class="col-lg-8 col-md-10 mx-auto">
             <?php
             /* TÌM TỔNG SỐ RECORDS */
-            $ViewQuery = "SELECT COUNT(*) AS total FROM admin_panel ORDER BY datetime DESC";
+            $ViewQuery = "SELECT COUNT(*) AS total FROM post";
             $Execute = mysqli_query($Connection, $ViewQuery);
             $row = mysqli_fetch_array($Execute);
             $total_records = $row['total'];
@@ -88,19 +91,21 @@
             }
             /* Tìm Start */
             $start = ($current_page - 1) * $limit;
-            $QueryPage = "SELECT * FROM admin_panel ORDER BY datetime DESC LIMIT $start, $limit";
+            $QueryPage = "SELECT * FROM post LIMIT $start, $limit";
             $ExecutePage = mysqli_query($Connection, $QueryPage);
             while ($DataRows = mysqli_fetch_array($ExecutePage)) {
-                $PostId = $DataRows["id"];
-                $DateTime = $DataRows["datetime"];
-                $Title = $DataRows["title"];
-                $Category = $DataRows["category"];
-                $Admin = $DataRows["author"];
-                $Image = $DataRows["images"];
-                $Post = $DataRows["post"];			
+                $PostId = $DataRows["idpost"];
+				$Category = $DataRows["idcategory"];
+				$Admin = $DataRows["idadmin"];
+				$Title = $DataRows["title"];
+				$Slug = $DataRows["slug"];
+				$Image = $DataRows["images"];
+				$Content = $DataRows["content"];
+				$DateTime = $DataRows["created"];		
             ?>
             <div class="post-preview">
                 <a href="post.php?id=<?= $PostId; ?>">
+                <img class="card-img-top img-responsive img-rounded" src="upload/<?= $Image; ?>" alt="">
                     <h2 class="post-title"><?= htmlentities($Title); ?></h2>
                     <h3 class="post-subtitle"></h3>
                 </a>
@@ -113,26 +118,30 @@
             }
             ?>
             <!-- Pager -->
-            <!-- <div class="clearfix">
-                <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
-            </div> -->
-            <div class="pagination">
+            <div class="pagination clearfix">
             <?php
             /* nếu current_page > 1 và total_page > 1 mới hiển thị nút prev */
-            if ($current_page > 1 && $total_page > 1){
-                echo '<a href="index.php?page='.($current_page-1).'">Prev</a> | ';
+            if ($current_page > 1 && $total_page > 1){ ?>
+                <a class="page-link" href="index.php?page=<?= $current_page-1; ?>">&larr; Older</a>
+            <?php
             }
             for ($i = 1; $i <= $total_page; $i++){
-                if ($i == $current_page){
-                    echo '<span>'.$i.'</span> | ';
+                if ($i == $current_page) { ?>
+                    <!-- echo '<span>'.$i.'</span> | '; -->
+
+                <?php
                 }
                 else{
-                    echo '<a href="index.php?page='.$i.'">'.$i.'</a> | ';
+                ?>
+                    <!-- echo '<a href="index.php?page='.$i.'">'.$i.'</a> | '; -->
+                <?php
                 }
             }
             // nếu current_page < $total_page và total_page > 1 mới hiển thị nút Next
-            if ($current_page < $total_page && $total_page > 1){
-                echo '<a href="index.php?page='.($current_page+1).'">Next</a> | ';
+            if ($current_page < $total_page && $total_page > 1){ ?>
+                <!-- echo '<a href="index.php?page='.($current_page+1).'">Next</a> | '; -->
+                <a class="page-link" href="index.php?page=<?= $current_page+1; ?>">Newer &rarr;</a>
+            <?php
             }
             ?>
             </div>
@@ -180,9 +189,9 @@
 </footer>
 
 <!-- Bootstrap core JavaScript -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+<script src="js/jquery-3.3.1.slim.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap4.min.js"></script>
 <!-- Custom scripts for this template -->
 <script src="js/clean-blog.min.js"></script>
 </body>

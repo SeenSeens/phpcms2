@@ -4,34 +4,42 @@
 
 <?php
 if(isset($_POST['submit'])) {
-    $UserName = mysqli_real_escape_string($Connection, $_POST['UserName']);
+	$UserName = mysqli_real_escape_string($Connection, $_POST['UserName']);
+	$Email = mysqli_real_escape_string($Connection, $_POST['Email']);
     $Password = mysqli_real_escape_string($Connection, $_POST['Password']);
-    $ConfirmPassword = mysqli_real_escape_string($Connection, $_POST['ConfirmPassword']);
+	$ConfirmPassword = mysqli_real_escape_string($Connection, $_POST['ConfirmPassword']);
+	$Role = mysqli_real_escape_string($Connection, $_POST['Role']);
+	$Addby = mysqli_real_escape_string($Connection, $_POST['Addby']);
 	date_default_timezone_set("Asia/Ho_Chi_Minh");
 	$currentTime = time();
 	$dateTime = strftime("%d-%m-%Y", $currentTime);
 	$dateTime;
 	$Admin = "TuanIT";
-	if(empty($UserName) || empty($Password) || empty($ConfirmPassword)) {
+	if(empty($UserName) || empty($Email) || empty($Password) || empty($ConfirmPassword) || empty($Role) || empty($Addby)){
 		$_SESSION["ErrorMessage"] = 'All Fields must be filled out';
 		Redirect_to("admins.php");
-	} elseif (strlen($Password) < 4 ) {
+		die();
+	}
+
+	if (strlen($Password) < 4 ) {
 		$_SESSION["ErrorMessage"] = "Atleast 4 Characters For Password are required";
 		Redirect_to("admins.php");
-    } elseif ($Password !== $ConfirmPassword) {
+		die();
+	}
+	
+	if ($Password !== $ConfirmPassword) {
 		$_SESSION["ErrorMessage"] = "Password / ConfirmPassword does not match";
 		Redirect_to("admins.php");
+		die();
+	}
+	$Query = "INSERT INTO admin (nameadmin, email, password, role, dateofassociation, addby) VALUES ('$UserName', '$Email', '$Password', '$Role', '$dateTime', '$Addby')";
+	$Execute = mysqli_query($Connection, $Query);
+	if ($Execute) {
+		$_SESSION["SuccessMessage"] = "Admin Added Successfully";
+		Redirect_to("admins.php");
 	} else {
-		global $Connection;
-		$Query = "INSERT INTO registration (datetime, username, password, addedby) VALUES ('$dateTime', '$UserName', '$Password', '$Admin')";
-		$Execute = mysqli_query($Connection, $Query);
-		if ($Execute) {
-			$_SESSION["SuccessMessage"] = "Admin Added Successfully";
-			Redirect_to("admins.php");
-		} else {
-			$_SESSION["ErrorMessage"] = "Admin faild to add";
-			Redirect_to("admins.php");
-		}
+		$_SESSION["ErrorMessage"] = "Admin faild to add";
+		Redirect_to("admins.php");
 	}
 }
 ?>
@@ -39,9 +47,10 @@ if(isset($_POST['submit'])) {
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Categories</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	<title>Admins</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="css/fontawesome.css">
 	<link rel="stylesheet" href="css/adminstyle.css">
 	<style type="text/css">
 		.FieldInfo {
@@ -92,10 +101,11 @@ if(isset($_POST['submit'])) {
 				<li><a href="addnewpost.php"><span class="glyphicon glyphicon-list-alt"></span>&nbsp; Add New Post</a></li>
 				<li><a href="categories.php"><span class="glyphicon glyphicon-tags"></span>&nbsp; Categories</a></li>
 				<li class="active"><a href="admins.php"><span class="glyphicon glyphicon-user"></span>&nbsp; Manage Admins</a></li>
+				<li><a href="user.php"><span class="fas fa-users"></span>&nbsp; User</a></li>
 				<li>
 					<a href="comments.php"><span class="glyphicon glyphicon-comment"></span>&nbsp; Comments
 					<?php
-					$QueryApproved = "SELECT COUNT(*) FROM comments WHERE status = 'OFF'";
+					$QueryApproved = "SELECT COUNT(*) FROM comment WHERE status = 'OFF'";
 					$ExecuteApproved  = mysqli_query($Connection, $QueryApproved);
 					$RowApproved  = mysqli_fetch_array($ExecuteApproved );
 					$TotalApproved  = array_shift($RowApproved);
@@ -107,6 +117,7 @@ if(isset($_POST['submit'])) {
 					</a>
 				</li>
 				<li><a href="#"><span class="glyphicon glyphicon-equalizer"></span>&nbsp; Live Blog</a></li>
+				<li><a href="#"><span class="fas fa-compact-disc"></span>&nbsp; Media</a></li>
 				<li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span>&nbsp; Logout</a></li>
 			</ul>
 		</div> <!-- End Side Area -->
@@ -124,12 +135,24 @@ if(isset($_POST['submit'])) {
 							<input class="form-control" type="text" name="UserName" id="username" placeholder="UserName">
 						</div>
 						<div class="form-group">
+							<label for="email"><span class="FieldInfo">Email:</span></label>
+							<input class="form-control" type="email" name="Email" id="email" placeholder="Email">
+						</div>
+						<div class="form-group">
 							<label for="password"><span class="FieldInfo">Password:</span></label>
 							<input class="form-control" type="password" name="Password" id="password" placeholder="Password">
 						</div>
 						<div class="form-group">
 							<label for="confirmpassword"><span class="FieldInfo">Confirm Password:</span></label>
 							<input class="form-control" type="password" name="ConfirmPassword" id="confirmpassword" placeholder="Retype Password">
+						</div>
+						<div class="form-group">
+							<label for="role"><span class="FieldInfo">Role:</span></label>
+							<input class="form-control" type="number" name="Role" id="role" placeholder="Role">
+						</div>
+						<div class="form-group">
+							<label for="addby"><span class="FieldInfo">Add By:</span></label>
+							<input class="form-control" type="text" name="Addby" id="addby" placeholder="Add By">
 						</div>
 						<input type="submit" class="btn btn-success btn-block" name="submit" value="Add New Admin">
 					</fieldset> 
@@ -139,30 +162,36 @@ if(isset($_POST['submit'])) {
 				<table class="table table-striped table-hover">
 					<tr>
 						<th>Sr No.</th>
-						<th>Date & Time</th>
 						<th>Admin Name</th>	
+						<th>Email</th>
+						<th>Role</th>
+						<th>Assembly Day</th>
 						<th>Added By</th>
 						<th>Action</th>
 					</tr>
 					<?php
 					global $Connection;
-					$ViewQuery = "SELECT * FROM registration ORDER BY datetime DESC";
+					$ViewQuery = "SELECT * FROM admin";
 					$Execute = mysqli_query($Connection, $ViewQuery);
 					$SrNo = 0;
 					while ($DataRows = mysqli_fetch_array($Execute)) {
-						$Id = $DataRows["id"];
-						$DateTime = $DataRows["datetime"];
-						$UserName = $DataRows["username"];
-						$Admin = $DataRows["addedby"];
+						$IdAdmin = $DataRows["idadmin"];
+						$NameAdmin = $DataRows["nameadmin"];
+						$Email = $DataRows["email"];
+						$Role = $DataRows["role"];
+						$AssemblyDay = $DataRows["dateofassociation"];
+						$AddedBy = $DataRows["addby"];
 						$SrNo++;
 						?>
 						<tr>
 							<td><?= $SrNo; ?></td>
-							<td><?= $DateTime; ?></td>
-							<td><?= $UserName; ?></td>
-							<td><?= $Admin; ?></td>
+							<td><?= $NameAdmin; ?></td>
+							<td><?= $Email; ?></td>
+							<td><?= $Role; ?></td>
+							<td><?= $AssemblyDay; ?></td>
+							<td><?= $AddedBy; ?></td>
 							<td>
-								<a href="deleteadmin.php?id=<?= $Id; ?>">
+								<a href="deleteadmin.php?id=<?= $IdAdmin; ?>">
 									<span class="btn btn-danger">Delete</span>
 								</a>
 							</td>
@@ -179,7 +208,7 @@ if(isset($_POST['submit'])) {
 <div class="footer">
 	<p style="color: #838383; text-align: center;">&copy; &nbsp;2018</p>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 </body>
 </html>

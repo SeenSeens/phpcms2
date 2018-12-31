@@ -1,26 +1,27 @@
-<?php require_once 'include/sessions.php'; ?>
 <?php require_once 'include/db.php'; ?>
+<?php require_once 'include/sessions.php'; ?>
 <?php require_once 'include/functions.php'; ?>
 
 <?php
 if(isset($_POST['submit'])) {
-    $UserName = mysqli_real_escape_string($Connection, $_POST['UserName']);
+    $Username = mysqli_real_escape_string($Connection, $_POST['Username']);
     $Password = mysqli_real_escape_string($Connection, $_POST['Password']);
-	if(empty($UserName) || empty($Password)) {
+	if(empty($Username) || empty($Password)) {
 		$_SESSION["ErrorMessage"] = 'All Fields must be filled out';
-		Redirect_to("login.php");
-	} else {
-        $Found_Account = Login_Attempt($UserName, $Password);
-        $_SESSION["User_Id"] = $Found_Account["id"];
-        $_SESSION["UserName"] = $Found_Account["username"];
-        if($Found_Account) {
-            $_SESSION["SuccessMessage"] = "Welcome {$_SESSION["UserName"]}";
-            Redirect_to("dashboard.php");
-        } else {
-            $_SESSION["ErrorMessage"] = "Invalid Username / Password";
-            Redirect_to("login.php");
-        }
-	}
+        Redirect_to("login.php");
+        die();
+	} 
+    $Found_Account = Login_Attempt($Username, $Password);
+    var_dump($Found_Account); die();
+    // $_SESSION["User_Id"] = $Found_Account["idadmin"];
+    // $_SESSION["Username"] = $Found_Account["nameadmin"];
+    if($Found_Account) {
+        $_SESSION["SuccessMessage"] = "Welcome {$_SESSION["Username"]}";
+        Redirect_to("dashboard.php");
+    } else {
+        $_SESSION["ErrorMessage"] = "Invalid Username / Password";
+        Redirect_to("login.php");
+    }
 }
 ?>
 
@@ -29,9 +30,10 @@ if(isset($_POST['submit'])) {
 <head>
 	<meta charset="UTF-8">
 	<title>Categories</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-	<link rel="stylesheet" href="css/adminstyle.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="css/fontawesome.css">
+    <link rel="stylesheet" href="css/adminstyle.css">
 	<style type="text/css">
 		.FieldInfo {
 			color: rgb(251, 174, 44);
@@ -61,7 +63,7 @@ if(isset($_POST['submit'])) {
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-user text-primary"></span>
                                 </span>
-                                <input class="form-control" type="text" name="UserName" id="username" placeholder="Username">
+                                <input class="form-control" type="text" name="Username" id="username" placeholder="Username">
                             </div>
                         </div>
                         <div class="form-group">
@@ -82,7 +84,7 @@ if(isset($_POST['submit'])) {
         </div>
     </div> <!-- End Row -->
 </div> <!-- End Container -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 </body>
 </html>

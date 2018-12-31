@@ -5,7 +5,7 @@
 <?php
 if (isset($_GET["id"])) {
 	$IdFromURL = $_GET["id"];
-	$Query = "DELETE FROM comments WHERE id = '$IdFromURL'";
+	$Query = "DELETE FROM comment WHERE idcomment = '$IdFromURL'";
 	$Exectute = mysqli_query($Connection, $Query);
 	if ($Exectute) {
 		$_SESSION["SuccessMessage"] = "Comment Deleted Successfully!!!";
