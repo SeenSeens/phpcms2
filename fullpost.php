@@ -19,7 +19,8 @@ if(isset($_POST['comment'])) {
 	} else {
 		global $Connection;
 		$PostIDFromURL = $_GET['id'];
-		$Query = "INSERT INTO comment (iduser, idadmin, comments, status, idpost) VALUES ('$User', '$Admin', '$Comment', 'OFF', '$PostIDFromURL')";
+		$GetUserComment = $_SESSION['iduser'];
+		$Query = "INSERT INTO comment (iduser, idadmin, comments, status, idpost) VALUES ('$GetUserComment', '$Admin', '$Comment', 'OFF', '$PostIDFromURL')";
 		$Execute = mysqli_query($Connection, $Query);
 		if ($Execute) {
 			$_SESSION["SuccessMessage"] = "Comment Submitted Successfully";
@@ -102,6 +103,8 @@ if(isset($_POST['comment'])) {
 	<div class="blog-header">
 		<h1>The Complete Responsive CMS Blog</h1>
 			<p class="lead">The complete blog using PHP by TruongTuanIT</p>
+			<?= $_SESSION['username']; ?>
+			<?= $_SESSION['iduser']; ?>
 		</div>
 		<div class="row">
 			<div class="col-sm-8">
@@ -150,19 +153,24 @@ if(isset($_POST['comment'])) {
 				<?php
 				global $Connection;
 				$PostIdFromComments = $_GET['id'];
-				$ExtractingCommentQuery = "SELECT * FROM comment WHERE idpost = '$PostIdFromComments' AND status = 'ON'";
+				$GetUserComment = $_SESSION['iduser'];
+				$ExtractingCommentQuery = "SELECT * FROM comment, user WHERE idpost = '$PostIdFromComments' AND status = 'ON' AND comment.iduser = user.iduser";
+
 				$Execute = mysqli_query($Connection, $ExtractingCommentQuery);
 				while ($DataRows = mysqli_fetch_array($Execute)) {
+					$UserComments = $DataRows['username'];
 				    $Comments = $DataRows['comments'];
 				?>
-				<div class="CommentBlock">
-					<img style="margin-left: 10px; margin-top: 10px;" class="pull-left" src="images/comment.png" alt="" width="50px" height="50px">
-					<p style="margin-left: 90px" class="Comment"><?= nl2br($Comments); ?></p>
+				<div class="CommentBlock clearfix">
+					<img class="pull-left" src="images/comment.png" alt="" width="50px" height="50px">
+					<p style="margin-left: 90px" class="Comment-Info"><?= $UserComments ?></p>
+					<p style="margin-left: 90px" class="description"><?= nl2br($Comments); ?></p>
 				</div>
+				<br>
 				<?php
 				}
 				?> <br>
-				<!-- <span class="FieldInfo">Share your thoughts about this post</span> -->
+				<span class="FieldInfo">Share your thoughts about this post</span>
 				<div>
 					<form action="fullpost.php?id=<?= $PostId; ?>" method="post" enctype="multipart/form-data">
 						<fieldset>

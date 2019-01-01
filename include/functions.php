@@ -1,5 +1,6 @@
 <?php require_once 'include/db.php'; ?>
 <?php require_once 'include/sessions.php'; ?>
+<?php require_once 'include/cookie.php'; ?>
 
 <?php
 function Redirect_to($New_Location) {
@@ -9,9 +10,9 @@ function Redirect_to($New_Location) {
 
 function Login_Attempt($Username, $Password) {
 	$Connection;
-	$Query = "SELECT * FROM admin WHERE nameadmin='$Username' AND password='$Password'";
+	$Query = "SELECT nameadmin, password FROM admin WHERE nameadmin='$Username' AND password='$Password'";
 	$Execute = mysqli_query($Connection, $Query);
-	if($admin = mysql_num_rows($Execute)) {
+	if($admin = mysqli_fetch_assoc($Execute)) {
 		return $admin;
 	} else {
 		return null;
@@ -30,5 +31,6 @@ function Confirm_Login() {
 		Redirect_to("login.php");
 	}
 } */
+
 
 ?>

@@ -13,11 +13,7 @@ if(isset($_POST['submit'])) {
 	$dateTime = strftime("%d-%m-%Y", $currentTime);
 	$dateTime;
 	$Admin = "TuanIT";
-	/* $Admin = $_SESSION["UserName"]; */
 	$Image = $_FILES["Image"]["name"];
-	/* $Image = $_FILES["Image"];
-	echo "<pre>";
-	print_r ($Image); */
 	$Target = "upload/".basename($_FILES["Image"]["name"]);	
 	if(empty($Title)) {
 		$_SESSION["ErrorMessage"] = "Title can't be empty";
@@ -44,7 +40,7 @@ if(isset($_POST['submit'])) {
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Categories</title>
+	<title>AddNewPost</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="css/fontawesome.css">
@@ -154,7 +150,7 @@ if(isset($_POST['submit'])) {
 						</div>
 						<div class="form-group">
 							<label for="imageselect"><span class="FieldInfo">Select Image:</span></label>
-							<input src="filemanager/dialog.php?type=0" type="file" class="form-control" name="Image" id="imageselect">
+							<input type="file" class="form-control" name="Image" id="imageselect">
 						</div>
 						<div class="form-group">
 							<label for="postarea"><span class="FieldInfo">Content:</span></label>

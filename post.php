@@ -10,25 +10,21 @@ if(isset($_POST['comment'])) {
 	$dateTime = strftime("%d-%m-%Y", $currentTime);
     $dateTime;
     $Admin = "TuanIT";
-	$User = "TuanITSSS";
 	$PostId = $_GET['idpost'];
 	if(empty($Comment)) {
 		$_SESSION["ErrorMessage"] = "All fields are required";
 	} elseif (strlen($Comment) > 500) {
 		$_SESSION["ErrorMessage"] = "Only 500  characters are allowed in comment";
 	} else {
-		$PostIDFromURL = $_GET['id'];
-		$Query = "INSERT INTO comment (iduser, idadmin, comments, status, idpost) VALUES ('$User', '$Admin', '$Comment', 'OFF', '$PostIDFromURL')";
+        $PostIDFromURL = $_GET['id'];
+        $GetUserComment = $_SESSION['iduser'];
+		$Query = "INSERT INTO comment (iduser, idadmin, comments, status, idpost) VALUES ('$GetUserComment', '$Admin', '$Comment', 'OFF', '$PostIDFromURL')";
 		$Execute = mysqli_query($Connection, $Query);
 		if ($Execute) {
-			$_SESSION["SuccessMessage"] = "Comment Submitted Successfully";
-            /* Redirect_to("fullpost.php?id={$PostId}"); */
-            Redirect_to("post.php?id={$PostId}");
+            Redirect_to("post.php?id={$PostIDFromURL}");
 		} else {
-			$_SESSION["ErrorMessage"] = "Something Went Wrong. Try Again !";
-            /* Redirect_to("fullpost.php?id={$PostId}"); */
-            Redirect_to("post.php?id={$PostId}");
-		}
+            Redirect_to("post.php?id={$PostIDFromURL}");
+		}   
 	}
 }
 ?>
@@ -61,18 +57,34 @@ if(isset($_POST['comment'])) {
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="index.php">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="about.html">About</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="post.html">Sample Post</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact</a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about.html">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="post.html">Sample Post</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html">Contact</a>
+                </li>
+                <?php
+                if(empty($_SESSION['username'])) { ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="loginuser.php">Login</a>
+                    </li>
+                <?php
+                }
+                ?>
+                <?php
+                if(!empty($_SESSION['username'])) { ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logoutuser.php">&nbsp; <?= $_SESSION['username']; ?> </a>
+                    </li>
+                <?php
+                }
+                ?>
             </ul>
         </div>
     </div>
@@ -160,44 +172,43 @@ while ($DataRows = mysqli_fetch_array($Execute)) {
         <!-- Single Comment -->
         <?php
         $PostIdFromComments = $_GET['id'];
-        $ExtractingCommentQuery = "SELECT * FROM comment WHERE idpost = '$PostIdFromComments'";
+        $ExtractingCommentQuery = "SELECT * FROM comment, user WHERE idpost = '$PostIdFromComments' AND status = 'ON' AND comment.iduser = user.iduser";
         $Execute = mysqli_query($Connection, $ExtractingCommentQuery);
         while ($DataRows = mysqli_fetch_array($Execute)) {
-            $CommentName = $DataRows['iduser'];
+            $CommentName = $DataRows['username'];
             $Comments = $DataRows['comments'];
         ?>
         <div class="media mb-4">
-            <img class="d-flex mr-3 rounded-circle" src="images/comment.png" alt="">
+            <img class="d-flex mr-3 rounded-circle" src="images/comment.png" alt="" width="45px;" height="45px;">
             <div class="media-body">
                 <h5 class="mt-0"><?= $CommentName ?></h5>
                 <span><?= nl2br($Comments); ?></span>
+                <!-- Trả lời commit -->
+                <div class="media mt-4">
+                    <img class="d-flex mr-3 rounded-circle" src="images/comment.png" alt="" width="30px;" height="30px;">
+                    <div class="media-body">
+                    <h5 class="mt-0">Commenter Name</h5>
+                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                    </div>
+                </div>
+                <!-- Trả lời comment -->
+                <div class="card my-4">
+                    <h5 class="card-header">Leave a Comment:</h5>
+                    <div class="card-body">
+                        <form action="post.php?id=<?= $PostId; ?>" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="commentarea"><span class="FieldInfo">Comment:</span></label>
+                                <textarea class="form-control" rows="3" placeholder="Write something here" id="commentarea" name="Comment"></textarea>
+                            </div>
+                            <button type="submit" name="comment" class="btn btn-primary">Reply</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
         <?php
         }
         ?>
-        <!-- Comment with nested comments -->
-        <!-- <div class="media mb-4">
-            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-            <div class="media-body">
-                <h5 class="mt-0">Commenter Name</h5>
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                <div class="media mt-4">
-                    <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                    <div class="media-body">
-                        <h5 class="mt-0">Commenter Name</h5>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                    </div>
-                </div>
-                <div class="media mt-4">
-                    <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                    <div class="media-body">
-                        <h5 class="mt-0">Commenter Name</h5>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                    </div>
-                </div>
-            </div>
-        </div> -->
     </div>
 </div>
 

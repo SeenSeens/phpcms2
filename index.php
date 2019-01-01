@@ -43,9 +43,22 @@
                 <li class="nav-item">
                     <a class="nav-link" href="contact.php">Contact</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="loginuser.php">Login</a>
-                </li>
+                <?php
+                if(empty($_SESSION['username'])) { ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="loginuser.php">Login</a>
+                    </li>
+                <?php
+                }
+                ?>
+                <?php
+                if(!empty($_SESSION['username'])) { ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logoutuser.php">&nbsp; <?= $_SESSION['username']; ?> </a>
+                    </li>
+                <?php
+                }
+                ?>
             </ul>
         </div>
     </div>

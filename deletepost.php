@@ -14,9 +14,6 @@ if(isset($_POST['delete'])) {
 	$dateTime;
 	$Admin = "TuanIT";
 	$Image = $_FILES["Image"]["name"];
-	/* $Image = $_FILES["Image"];
-	echo "<pre>";
-	print_r ($Image); */
 	$Target = "upload/".basename($_FILES["Image"]["name"]);	
     global $Connection;
     $DeleteFromURL = $_GET['delete'];
@@ -36,7 +33,7 @@ if(isset($_POST['delete'])) {
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Delete Post</title>
+	<title>DeletePost</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="css/fontawesome.css">

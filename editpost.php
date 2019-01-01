@@ -14,9 +14,6 @@ if(isset($_POST['submit'])) {
 	$dateTime;
 	$Admin = "TuanIT";
 	$Image = $_FILES["Image"]["name"];
-	/* $Image = $_FILES["Image"];
-	echo "<pre>";
-	print_r ($Image); */
 	$Target = "upload/".basename($_FILES["Image"]["name"]);	
 	if(empty($Title)) {
 		$_SESSION["ErrorMessage"] = "Title can't be empty";
@@ -44,7 +41,7 @@ if(isset($_POST['submit'])) {
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Edit Post</title>
+	<title>EditPost</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="css/fontawesome.css">

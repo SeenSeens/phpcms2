@@ -6,19 +6,22 @@
 if (isset($_POST['login'])) {
     $Email = mysqli_real_escape_string($Connection, $_POST['Email']);
     $Password = mysqli_real_escape_string($Connection, $_POST['Password']);
-    $Query = "SELECT email, password FROM user WHERE email='$Email' AND password='$Password'";
+    $Query = "SELECT * FROM user WHERE email='$Email' AND password='$Password'";
     $Execute = mysqli_query($Connection, $Query);
     if (mysqli_num_rows($Execute) == 0) {
         Redirect_to("loginuser.php");
         exit;
     }
     //Lấy mật khẩu trong database ra
-    $Row = mysqli_fetch_array($Execute); 
+    $Row = mysqli_fetch_array($Execute);
     //So sánh 2 mật khẩu có trùng khớp hay không
     if ($Password != $Row['password']) {
         Redirect_to("loginuser.php");
         exit;
     }
+    $_SESSION['iduser'] = $Row['iduser'];
+    $_SESSION['username'] = $Row['username'];
+    $_SESSION['email'] = $Row['email']; 
     Redirect_to("index.php");
 }
 ?>

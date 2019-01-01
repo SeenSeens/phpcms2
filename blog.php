@@ -53,6 +53,7 @@
     <div class="blog-header">
         <h1>The complete responsive CMS blog</h1>
         <p class="lead">The comlete blog using php by tuanit</p>
+		<?= $_SESSION['username']; ?>
     </div>
     <div class="row"> <!-- Row -->
         <div class="col-sm-8"> <!-- Main Blog -->

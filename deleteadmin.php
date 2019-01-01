@@ -5,7 +5,7 @@
 <?php
 if (isset($_GET["id"])) {
 	$IdFromURL = $_GET["id"];
-	$Query = "DELETE FROM registration WHERE id = '$IdFromURL'";
+	$Query = "DELETE FROM admin WHERE idadmin = '$IdFromURL'";
 	$Exectute = mysqli_query($Connection, $Query);
 	if ($Exectute) {
 		$_SESSION["SuccessMessage"] = "Admin Deleted Successfully!!!";
