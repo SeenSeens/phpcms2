@@ -12,9 +12,9 @@ if(isset($_POST['submit'])) {
         die();
 	} 
     $Found_Account = Login_Attempt($Username, $Password);
-    var_dump($Found_Account); die();
-    // $_SESSION["User_Id"] = $Found_Account["idadmin"];
-    // $_SESSION["Username"] = $Found_Account["nameadmin"];
+    // var_dump($Found_Account); die();
+    $_SESSION["User_Id"] = $Found_Account["idadmin"];
+    $_SESSION["Username"] = $Found_Account["nameadmin"];
     if($Found_Account) {
         $_SESSION["SuccessMessage"] = "Welcome {$_SESSION["Username"]}";
         Redirect_to("dashboard.php");

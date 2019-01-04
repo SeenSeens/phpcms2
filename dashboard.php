@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Admin Dashboard</title>
+	<title>Dashboard</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="css/fontawesome.css">
@@ -30,7 +30,6 @@
 		<div class="collapse navbar-collapse" id="collapse">
 		<ul class="nav navbar-nav">
 			<li><a href="#">Home</a></li>
-			<!-- <li class="active"><a href="blog.php" target="_blank">Blog</a></li> -->
 			<li class="active"><a href="index.php" target="_blank">Blog</a></li>
 			<li><a href="#">About Us</a></li>
 			<li><a href="#">Services</a></li>

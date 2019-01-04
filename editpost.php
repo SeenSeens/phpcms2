@@ -14,9 +14,6 @@ if(isset($_POST['submit'])) {
 	$dateTime;
 	$Admin = "TuanIT";
 	$Image = $_FILES["Image"]["name"];
-	/* $Image = $_FILES["Image"];
-	echo "<pre>";
-	print_r ($Image); */
 	$Target = "upload/".basename($_FILES["Image"]["name"]);	
 	if(empty($Title)) {
 		$_SESSION["ErrorMessage"] = "Title can't be empty";
@@ -44,7 +41,7 @@ if(isset($_POST['submit'])) {
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Edit Post</title>
+	<title>EditPost</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="css/fontawesome.css">
@@ -75,7 +72,7 @@ if(isset($_POST['submit'])) {
 		<div class="collapse navbar-collapse" id="collapse">
 		<ul class="nav navbar-nav">
 			<li><a href="#">Home</a></li>
-			<li class="active"><a href="blog.php" target="_blank">Blog</a></li>
+			<li class="active"><a href="index.php" target="_blank">Blog</a></li>
 			<li><a href="#">About Us</a></li>
 			<li><a href="#">Services</a></li>
 			<li><a href="#">Contact Us</a></li>
@@ -193,7 +190,7 @@ if(isset($_POST['submit'])) {
 </div>
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=1qa5t0dn0b46dukvifb2b500e7ausw3qelzj0jie038xyejf"></script>
+<script src="tinymce/js/tinymce/tinymce.min.js"></script>
 <script src="js/tiny.js"></script>
 </body>
 </html>
