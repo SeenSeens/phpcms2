@@ -67,11 +67,7 @@ if(isset($_POST['submit'])) {
 		<div class="collapse navbar-collapse" id="collapse">
 		<ul class="nav navbar-nav">
 			<li><a href="#">Home</a></li>
-<<<<<<< HEAD:backend/addnewpost.php
 			<li class="active"><a href="../index.php" target="_blank">Blog</a></li>
-=======
-			<li class="active"><a href="index.php" target="_blank">Blog</a></li>
->>>>>>> f8e57e057c5a3e3fbc744fc2757d380a87b03e29:addnewpost.php
 			<li><a href="#">About Us</a></li>
 			<li><a href="#">Services</a></li>
 			<li><a href="#">Contact Us</a></li>
