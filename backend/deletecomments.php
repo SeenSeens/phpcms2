@@ -1,6 +1,4 @@
-<?php require_once 'include/sessions.php'; ?>
-<?php require_once 'include/functions.php'; ?>
-<?php require_once 'include/db.php'; ?>
+<?php require_once './config/config.php'; ?>
 
 <?php
 if (isset($_GET["id"])) {

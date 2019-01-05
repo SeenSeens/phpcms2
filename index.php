@@ -10,7 +10,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>Truong Tuan IT</title>
+        <title>Trang chủ</title>
+        <link rel="shortcut icon" href="./favicon.ico">
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="css/bootstrap4.min.css">
         <link rel="stylesheet" href="css/fontawesome.css">
@@ -18,13 +19,14 @@
         <link rel="stylesheet" href="css/opensans.css">
         <!-- Custom styles for this template -->
         <link rel="stylesheet" href="css/clean-blog.min.css">
+        <!-- <base href="../" /> -->
     </head>
 <body>
 
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
-        <a class="navbar-brand" href="index.php">TruongTuanIT</a>
+        <a class="navbar-brand" href="index.php"></a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
             <i class="fas fa-bars"></i>
@@ -32,21 +34,18 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="index.php">Home</a>
+                    <a class="nav-link" href="index.php">Trang chủ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="category.php">Categories</a>
+                    <a class="nav-link" href="tb.php">Bài viết</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="about.php">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contact.php">Contact</a>
+                    <a class="nav-link" href="about.php">Giới thiệu</a>
                 </li>
                 <?php
                 if(empty($_SESSION['username'])) { ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="loginuser.php">Login</a>
+                        <a class="nav-link" href="tb.php">Đăng nhập</a>
                     </li>
                 <?php
                 }
@@ -104,7 +103,7 @@
             }
             /* Tìm Start */
             $start = ($current_page - 1) * $limit;
-            $QueryPage = "SELECT * FROM post LIMIT $start, $limit";
+            $QueryPage = "SELECT * FROM post ORDER BY created DESC LIMIT $start, $limit";
             $ExecutePage = mysqli_query($Connection, $QueryPage);
             while ($DataRows = mysqli_fetch_array($ExecutePage)) {
                 $PostId = $DataRows["idpost"];

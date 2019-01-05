@@ -17,12 +17,15 @@ if (isset($_POST['submit'])) {
 		$_SESSION["ErrorMessage"] = "Atleast 4 Characters For Password are required";
 		Redirect_to("register.php");
 		die();
-	}	
+    }
+    
 	if ($Password !== $ConfirmPassword) {
 		$_SESSION["ErrorMessage"] = "Password / ConfirmPassword does not match";
 		Redirect_to("register.php");
 		die();
-	}
+    }
+     // Mã khóa mật khẩu
+    $Password = md5($Password);
     $Query = "INSERT INTO user (username, email, password) VALUES ('$Username', '$Email', '$Password')";
 	$Execute = mysqli_query($Connection, $Query);
 	if ($Execute) {
@@ -34,80 +37,105 @@ if (isset($_POST['submit'])) {
 	}
 }
 ?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Registration</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="css/fontawesome.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: black;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Add padding to containers */
+.container {
+  padding: 16px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for the submit button */
+.registerbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.registerbtn:hover {
+  opacity: 1;
+}
+
+/* Add a blue text color to links */
+a {
+  color: dodgerblue;
+}
+
+/* Set a grey background color and center the text of the "sign in" section */
+.signin {
+  background-color: #f1f1f1;
+  text-align: center;
+}
+</style>
 </head>
 <body>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-offset-4 col-sm-4">
-            <form action="register.php" method="post">
-                <fieldset>
-                    <div class="form-group">
-                        <label for="username">
-                            <span class="FieldInfo">Username:</span>
-                        </label>
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-user text-primary"></span>
-                            </span>
-                            <input class="form-control" type="text" name="Username" id="username" placeholder="Username">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="username">
-                            <span class="FieldInfo">Email:</span>
-                        </label>
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-envelope text-primary"></span>
-                            </span>
-                            <input class="form-control" type="email" name="Email" id="email" placeholder="Email">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">
-                            <span class="FieldInfo">Password:</span>
-                        </label>
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-lock text-primary"></span>
-                            </span>
-                            <input class="form-control" type="password" name="Password" id="password" placeholder="Password">
-                        </div>								
-                    </div> 
-                    <div class="form-group">
-                        <label for="confirmpassword">
-                            <span class="FieldInfo">Confirm Password:</span>
-                        </label>
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-lock text-primary"></span>
-                            </span>
-                            <input class="form-control" type="password" name="ConfirmPassword" id="confirmpassword" placeholder="Confirm Password">
-                        </div>								
-                    </div> 
-                    <input class="btn btn-info btn-block" type="submit" name="submit" value="Registration">
-                </fieldset>
-            </form>
-        </div>   
-    </div> <!-- End Row -->
-</div> <!-- End Container -->
 
+<form action="register.php" method="post">
+  <div class="container">
+    <h1>Register</h1>
+    <p>Please fill in this form to create an account.</p>
+    <hr>
 
+    <label for="Username"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="Username" required>
 
+    <label for="email"><b>Email</b></label>
+    <input type="text" placeholder="Enter Email" name="Email" required>
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="js/jquery.min.js"></script>
-<!-- Latest compiled and minified JavaScript -->
-<script src="js/bootstrap.min.js"></script>
+    <label for="Password"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="Password" required>
+
+    <label for="ConfirmPassword"><b>Repeat Password</b></label>
+    <input type="password" placeholder="Repeat Password" name="ConfirmPassword" required>
+    <hr>
+    <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+
+    <button type="submit" class="registerbtn" name="submit">Register</button>
+  </div>
+  
+  <div class="container signin">
+    <p>Already have an account? <a href="loginuser.php">Sign in</a>.</p>
+  </div>
+</form>
+
 </body>
 </html>

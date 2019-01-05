@@ -6,6 +6,8 @@
 if (isset($_POST['login'])) {
     $Email = mysqli_real_escape_string($Connection, $_POST['Email']);
     $Password = mysqli_real_escape_string($Connection, $_POST['Password']);
+    // mã hóa pasword
+    $Password = md5($Password);
     $Query = "SELECT * FROM user WHERE email='$Email' AND password='$Password'";
     $Execute = mysqli_query($Connection, $Query);
     if (mysqli_num_rows($Execute) == 0) {

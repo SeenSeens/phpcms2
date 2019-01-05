@@ -1,7 +1,4 @@
-<?php require_once 'include/db.php'; ?>
-<?php require_once 'include/sessions.php'; ?>
-<?php require_once 'include/functions.php'; ?>
-
+<?php require_once './config/config.php'; ?>
 <?php
 if(isset($_POST['submit'])) {
 	$Title = mysqli_real_escape_string($Connection, $_POST['Title']);
@@ -41,10 +38,11 @@ if(isset($_POST['submit'])) {
 <head>
 	<meta charset="UTF-8">
 	<title>AddNewPost</title>
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="css/fontawesome.css">
-	<link rel="stylesheet" href="css/adminstyle.css">
+	<link rel="shortcut icon" href="../favicon.ico">
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="../css/fontawesome.css">
+	<link rel="stylesheet" href="../css/adminstyle.css">
 	<style type="text/css">
 		.FieldInfo {
 			color: rgb(251, 174, 44);
@@ -69,7 +67,7 @@ if(isset($_POST['submit'])) {
 		<div class="collapse navbar-collapse" id="collapse">
 		<ul class="nav navbar-nav">
 			<li><a href="#">Home</a></li>
-			<li class="active"><a href="blog.php" target="_blank">Blog</a></li>
+			<li class="active"><a href="../index.php" target="_blank">Blog</a></li>
 			<li><a href="#">About Us</a></li>
 			<li><a href="#">Services</a></li>
 			<li><a href="#">Contact Us</a></li>
@@ -171,9 +169,9 @@ if(isset($_POST['submit'])) {
 	</div>
 	<!-- /.container -->
 </footer>
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="tinymce/js/tinymce/tinymce.min.js"></script>
-<script src="js/tiny.js"></script>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../tinymce/js/tinymce/tinymce.min.js"></script>
+<script src="../js/tiny.js"></script>
 </body>
 </html>

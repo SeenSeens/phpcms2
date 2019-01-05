@@ -1,16 +1,16 @@
-<?php require_once 'include/db.php'; ?>
-<?php require_once 'include/sessions.php'; ?>
-<?php require_once 'include/functions.php'; ?>
+<?php require_once './config/config.php'; ?>
 <?php /* Confirm_Login(); */ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>Dashboard</title>
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="css/fontawesome.css">
-	<link rel="stylesheet" href="css/adminstyle.css">
+	<link rel="shortcut icon" href="../favicon.ico">
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="../css/fontawesome.css">
+	<link rel="stylesheet" href="../css/adminstyle.css">
+	<base href="./" />
 </head>
 <body>
 <nav class="navbar navbar-default" role="navigation">
@@ -30,7 +30,7 @@
 		<div class="collapse navbar-collapse" id="collapse">
 		<ul class="nav navbar-nav">
 			<li><a href="#">Home</a></li>
-			<li class="active"><a href="index.php" target="_blank">Blog</a></li>
+			<li class="active"><a href="../index.php" target="_blank">Blog</a></li>
 			<li><a href="#">About Us</a></li>
 			<li><a href="#">Services</a></li>
 			<li><a href="#">Contact Us</a></li>
@@ -128,7 +128,7 @@
 						</td>
 						<td><?= $Category; ?></td>
 						<td><?= $Admin; ?></td>
-						<td><img src="upload/<?= $Image; ?>"  width="120px;" height="50px;"></td>
+						<td><img src="../upload/<?= $Image; ?>"  width="120px;" height="50px;"></td>
 						<td>
 							<?php
 							$QueryApproved = "SELECT COUNT(*) FROM comment WHERE idpost = '$Id' AND status = 'ON'";
@@ -158,7 +158,7 @@
 							<a href="deletepost.php?delete=<?= $Id; ?>"><span class="btn btn-danger">Delete</span></a>
 						</td>
 						<td>
-							<a href="fullpost.php?id=<?= $Id; ?>" target="_blank"><span class="btn btn-primary">Live Preview</span></a>
+							<a href="../fullpost.php?id=<?= $Id; ?>" target="_blank"><span class="btn btn-primary">Live Preview</span></a>
 						</td>
 					</tr>
 					<?php
@@ -173,7 +173,7 @@
 <div class="footer">
 	<p style="color: #838383; text-align: center;">&copy; &nbsp;2018</p>
 </div>
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
 </body>
 </html>

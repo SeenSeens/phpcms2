@@ -36,7 +36,8 @@ if(isset($_POST['comment'])) {
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>Truong Tuan IT</title>
+        <title>Bài viết</title>
+        <link rel="shortcut icon" href="./favicon.ico">
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="css/bootstrap4.min.css">
         <link rel="stylesheet" href="css/fontawesome.css">
@@ -58,21 +59,18 @@ if(isset($_POST['comment'])) {
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="index.php">Home</a>
+                    <a class="nav-link" href="index.php">Trang chủ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="about.html">About</a>
+                    <a class="nav-link" href="tb.php">Bài viết</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="post.html">Sample Post</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contact.html">Contact</a>
+                    <a class="nav-link" href="about.php">Giới thiệu</a>
                 </li>
                 <?php
                 if(empty($_SESSION['username'])) { ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="loginuser.php">Login</a>
+                        <a class="nav-link" href="tb.php">Đăng nhập</a>
                     </li>
                 <?php
                 }
@@ -163,9 +161,15 @@ while ($DataRows = mysqli_fetch_array($Execute)) {
                 <form action="post.php?id=<?= $PostId; ?>" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="commentarea"><span class="FieldInfo">Comment:</span></label>
-                        <textarea class="form-control" rows="3" placeholder="Write something here" id="commentarea" name="Comment"></textarea>
+                        <textarea disabled class="form-control" rows="3" placeholder="Write something here" id="commentarea" name="Comment"></textarea>
                     </div>
-                    <button type="submit" name="comment" class="btn btn-primary">Comments</button>
+                    <button type="submit" name="" id="comment" class="btn btn-primary">Comments</button>
+                    <script language="javascript">
+                        var button = document.getElementById("comment");
+                        button.onclick = function(){
+                            alert("Tính năng này đang được phát triển");
+                        }
+                    </script>
                 </form>
             </div>
         </div>
@@ -198,9 +202,15 @@ while ($DataRows = mysqli_fetch_array($Execute)) {
                         <form action="post.php?id=<?= $PostId; ?>" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="commentarea"><span class="FieldInfo">Comment:</span></label>
-                                <textarea class="form-control" rows="3" placeholder="Write something here" id="commentarea" name="Comment"></textarea>
+                                <textarea class="form-control" rows="3" placeholder="Write something here" id="repcommentarea" name="Comment"></textarea>
                             </div>
-                            <button type="submit" name="comment" class="btn btn-primary">Reply</button>
+                            <button disabled type="submit" name="" class="btn btn-primary">Reply</button>
+                            <script language="javascript">
+                                var button = document.getElementById("comment");
+                                button.onclick = function(){
+                                    alert("Tính năng này đang được phát triển");
+                                }
+                            </script>
                         </form>
                     </div>
                 </div>
@@ -219,7 +229,7 @@ while ($DataRows = mysqli_fetch_array($Execute)) {
             <div class="col-lg-8 col-md-10 mx-auto">
                 <ul class="list-inline text-center">
                     <li class="list-inline-item">
-                        <a href="https://www.linkedin.com/in/tuanseenit/"">
+                        <a href="https://www.linkedin.com/in/tuanseenit">
                             <span class="fa-stack fa-lg">
                                 <i class="fas fa-circle fa-stack-2x"></i>
                                 <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
@@ -255,5 +265,26 @@ while ($DataRows = mysqli_fetch_array($Execute)) {
 <script src="js/bootstrap4.min.js"></script>
 <!-- Custom scripts for this template -->
 <script src="js/clean-blog.min.js"></script>
+
+<script>
+function listReplies(repcommentarea, data, list) {
+    for (var i = 0; (i < data.length); i++)
+    {
+        if (repcommentarea == data[i].id_perent)
+        {
+            var comments = "<div class='comment-row'>"+
+            " <div class='comment-info'><span class='commet-row-label'>from</span> <span class='posted-by'>" + data[i]['comment_sender_name'] + " </span> <span class='commet-row-label'>at</span> <span class='posted-at'>" + data[i]['date'] + "</span></div>" + 
+            "<div class='comment-text'>" + data[i]['comment'] + "</div>"+
+            "<div><a class='btn-reply' onClick='postReply(" + data[i]['comment_id'] + ")'>Reply</a></div>"+
+            "</div>";
+            var item = $("<li>").html(comments);
+            var reply_list = $('<ul>');
+            list.append(item);
+            item.append(reply_list);
+            listReplies(data[i].comment_id, data, reply_list);
+        }
+    }
+}
+</script>
 </body>
 </html>
