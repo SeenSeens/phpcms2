@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost
--- Thời gian đã tạo: Th1 05, 2019 lúc 08:31 PM
+-- Thời gian đã tạo: Th1 05, 2019 lúc 08:43 PM
 -- Phiên bản máy phục vụ: 10.1.31-MariaDB
 -- Phiên bản PHP: 7.0.26
 
