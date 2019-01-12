@@ -1,6 +1,6 @@
-<?php require_once './include/db.php'; ?>
-<?php require_once './include/sessions.php'; ?>
-<?php require_once './include/cookie.php'; ?>
+<?php require_once './config/db.php'; ?>
+<?php require_once './config/sessions.php'; ?>
+<?php require_once './config/cookie.php'; ?>
 
 <?php
 function Redirect_to($New_Location) {
