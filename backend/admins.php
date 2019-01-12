@@ -18,13 +18,11 @@ if(isset($_POST['submit'])) {
 		Redirect_to("admins.php");
 		die();
 	}
-
 	if (strlen($Password) < 4 ) {
 		$_SESSION["ErrorMessage"] = "Atleast 4 Characters For Password are required";
 		Redirect_to("admins.php");
 		die();
 	}
-	
 	if ($Password !== $ConfirmPassword) {
 		$_SESSION["ErrorMessage"] = "Password / ConfirmPassword does not match";
 		Redirect_to("admins.php");
@@ -47,10 +45,9 @@ if(isset($_POST['submit'])) {
 	<meta charset="UTF-8">
 	<title>Admins</title>
 	<link rel="shortcut icon" href="../favicon.ico">
-	<link rel="stylesheet" href="../css/bootstrap.min.css">
-	<link rel="stylesheet" href="../css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="../css/fontawesome.css">
-	<link rel="stylesheet" href="../css/adminstyle.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+	<link rel="stylesheet" href="./css/adminstyle.css">
 	<style type="text/css">
 		.FieldInfo {
 			color: rgb(251, 174, 44);
@@ -75,11 +72,7 @@ if(isset($_POST['submit'])) {
 	<div class="collapse navbar-collapse" id="collapse">
 		<ul class="nav navbar-nav">
 			<li><a href="#">Home</a></li>
-<<<<<<< HEAD:backend/admins.php
 			<li class="active"><a href="../index.php" target="_blank">Blog</a></li>
-=======
-			<li class="active"><a href="index.php" target="_blank">Blog</a></li>
->>>>>>> f8e57e057c5a3e3fbc744fc2757d380a87b03e29:admins.php
 			<li><a href="#">About Us</a></li>
 			<li><a href="#">Services</a></li>
 			<li><a href="#">Contact Us</a></li>
@@ -173,7 +166,6 @@ if(isset($_POST['submit'])) {
 						<th>Action</th>
 					</tr>
 					<?php
-					global $Connection;
 					$ViewQuery = "SELECT * FROM admin";
 					$Execute = mysqli_query($Connection, $ViewQuery);
 					$SrNo = 0;
@@ -211,7 +203,7 @@ if(isset($_POST['submit'])) {
 <div class="footer">
 	<p style="color: #838383; text-align: center;">&copy; &nbsp;2018</p>
 </div>
-<script src="../js/jquery.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>

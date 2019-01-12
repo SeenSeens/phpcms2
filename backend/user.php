@@ -6,10 +6,9 @@
 	<meta charset="UTF-8">
 	<title>User</title>
 	<link rel="shortcut icon" href="../favicon.ico">
-	<link rel="stylesheet" href="../css/bootstrap.min.css">
-	<link rel="stylesheet" href="../css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="../css/fontawesome.css">
-	<link rel="stylesheet" href="../css/adminstyle.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+	<link rel="stylesheet" href="./css/adminstyle.css">
 </head>
 <body>
 <nav class="navbar navbar-default" role="navigation">
@@ -29,7 +28,6 @@
 		<div class="collapse navbar-collapse" id="collapse">
 		<ul class="nav navbar-nav">
 			<li><a href="#">Home</a></li>
-			<!-- <li class="active"><a href="blog.php" target="_blank">Blog</a></li> -->
 			<li class="active"><a href="../index.php" target="_blank">Blog</a></li>
 			<li><a href="#">About Us</a></li>
 			<li><a href="#">Services</a></li>
@@ -82,7 +80,7 @@
 				echo SuccessMessage();
 				?> 
 			</div>
-			<h1>User Dashboard</h1>
+			<h1>User</h1>
 			<div class="table-responsive">
 				<table class="table table-striped table-hover">
 					<tr>
@@ -117,7 +115,8 @@
 <div class="footer">
 	<p style="color: #838383; text-align: center;">&copy; &nbsp;2018</p>
 </div>
-<script src="../js/jquery.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>	

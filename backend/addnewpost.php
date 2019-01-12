@@ -11,25 +11,26 @@ if(isset($_POST['submit'])) {
 	$dateTime;
 	$Admin = "TuanIT";
 	$Image = $_FILES["Image"]["name"];
-	$Target = "upload/".basename($_FILES["Image"]["name"]);	
+	$Target = "../upload/".basename($_FILES["Image"]["name"]);	
 	if(empty($Title)) {
 		$_SESSION["ErrorMessage"] = "Title can't be empty";
 		Redirect_to("addnewpost.php");
-	} elseif (strlen($Title) < 2) {
+		exit();
+	}
+	if (strlen($Title) < 2) {
 		$_SESSION["ErrorMessage"] = "Title Should be at-least 2 Characters";
 		Redirect_to("addnewpost.php");
+		exit();
+	}
+	$Query = "INSERT INTO post (idcategory, idadmin, title, slug, images, content, created) VALUES ('$Category', '$Admin', '$Title', '$Slug', '$Image', '$Content', '$dateTime')";
+	$Execute = mysqli_query($Connection, $Query);
+	move_uploaded_file($_FILES["Image"]["tmp_name"], $Target); // Chuyen hinh anh sang thu muc
+	if ($Execute) {
+		$_SESSION["SuccessMessage"] = "Post Added Successfully";
+		Redirect_to("addnewpost.php");
 	} else {
-		global $Connection;
-		$Query = "INSERT INTO post (idcategory, idadmin, title, slug, images, content, created) VALUES ('$Category', '$Admin', '$Title', '$Slug', '$Image', '$Content', '$dateTime')";
-		$Execute = mysqli_query($Connection, $Query);
-		move_uploaded_file($_FILES["Image"]["tmp_name"], $Target); // Chuyen hinh anh sang thu muc
-		if ($Execute) {
-			$_SESSION["SuccessMessage"] = "Post Added Successfully";
-			Redirect_to("addnewpost.php");
-		} else {
-			$_SESSION["ErrorMessage"] = "Something Went Wrong. Try Again !";
-			Redirect_to("addnewpost.php");
-		}
+		$_SESSION["ErrorMessage"] = "Something Went Wrong. Try Again !";
+		Redirect_to("addnewpost.php");
 	}
 }
 ?>
@@ -39,10 +40,9 @@ if(isset($_POST['submit'])) {
 	<meta charset="UTF-8">
 	<title>AddNewPost</title>
 	<link rel="shortcut icon" href="../favicon.ico">
-	<link rel="stylesheet" href="../css/bootstrap.min.css">
-	<link rel="stylesheet" href="../css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="../css/fontawesome.css">
-	<link rel="stylesheet" href="../css/adminstyle.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+	<link rel="stylesheet" href="./css/adminstyle.css">
 	<style type="text/css">
 		.FieldInfo {
 			color: rgb(251, 174, 44);
@@ -82,7 +82,6 @@ if(isset($_POST['submit'])) {
 		</div>		
 	</div>
 </nav>
-
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-sm-2">
@@ -123,7 +122,7 @@ if(isset($_POST['submit'])) {
 					<fieldset>
 						<div class="form-group">
 							<label for="title"><span class="FieldInfo">Title:</span></label>
-							<input class="form-control" type="text" name="Title" id="title" placeholder="Title">
+							<input class="form-control" type="text" name="Title" id="title" onkeyup="ChangeToSlug();" placeholder="Title">
 						</div>
 						<div class="form-group">
 							<label for="slug"><span class="FieldInfo">Slug:</span></label>
@@ -161,7 +160,6 @@ if(isset($_POST['submit'])) {
 		</div> <!-- End Main Area -->
 	</div> <!-- End Row -->
 </div> <!-- End Container -->
-
 <!-- Footer -->
 <footer class="py-5 bg-dark">
 	<div class="container">
@@ -169,9 +167,10 @@ if(isset($_POST['submit'])) {
 	</div>
 	<!-- /.container -->
 </footer>
-<script src="../js/jquery.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../tinymce/js/tinymce/tinymce.min.js"></script>
-<script src="../js/tiny.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="./tinymce/js/tinymce/tinymce.min.js"></script>
+<script src="./js/tiny.js"></script>
+<script src="./js/slug.js"></script>
 </body>
 </html>

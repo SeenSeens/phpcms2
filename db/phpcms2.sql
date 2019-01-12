@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost
--- Thời gian đã tạo: Th12 24, 2018 lúc 11:17 PM
+-- Thời gian đã tạo: Th1 13, 2019 lúc 12:13 AM
 -- Phiên bản máy phục vụ: 5.7.24-0ubuntu0.18.04.1
 -- Phiên bản PHP: 7.2.10-0ubuntu0.18.04.1
 
@@ -23,26 +23,18 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `admin_panel`
+-- Cấu trúc bảng cho bảng `admin`
 --
 
-CREATE TABLE `admin_panel` (
-  `id` int(11) NOT NULL,
-  `datetime` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `category` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `author` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `images` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `post` text COLLATE utf8_unicode_ci NOT NULL
+CREATE TABLE `admin` (
+  `idadmin` int(11) NOT NULL,
+  `nameadmin` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `role` int(11) NOT NULL,
+  `dateofassociation` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `addby` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Đang đổ dữ liệu cho bảng `admin_panel`
---
-
-INSERT INTO `admin_panel` (`id`, `datetime`, `title`, `category`, `author`, `images`, `post`) VALUES
-(23, '24-12-2018', 'Tháº£m há»a dá»“n dáº­p nÄƒm 2018, Indonesia chÃ¬m trong tang thÆ°Æ¡ng', 'Khoa há»c', 'TuanIT', 'sunda_strait_3.jpg', '<p class=\"the-article-summary cms-desc\" style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 4px 0px 50px -300px; padding: 20px 0px; border: 0px; outline: 0px; font-size: 1.1rem; vertical-align: baseline; background: transparent; text-size-adjust: 100%; font-family: \'Noto Serif\', serif; line-height: 1.6; font-weight: bold; color: #333333; clear: both; float: left; width: 600px; -webkit-font-smoothing: antialiased; position: relative; left: 500px; text-align: center;\">Äá»™ng Ä‘áº¥t, s&oacute;ng tháº§n, tháº£m há»a ch&igrave;m ph&agrave;, m&aacute;y bay rÆ¡i li&ecirc;n tiáº¿p xáº£y ra trong nÄƒm 2018 Ä‘&atilde; khiáº¿n h&agrave;ng ngh&igrave;n ngÆ°á»i Indonesia thiá»‡t máº¡ng, cáº£ Ä‘áº¥t nÆ°á»›c ch&igrave;m trong tang t&oacute;c.</p>\r\n<div class=\"the-article-body cms-body\" style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px 0px 0px -300px; padding: 0px; border: 0px; outline: 0px; font-size: 1.1rem; vertical-align: baseline; background: transparent; text-size-adjust: 100%; float: left; width: 600px; position: relative; font-family: \'Noto Serif\', serif; line-height: 1.6; color: #333333; -webkit-font-smoothing: antialiased; clear: both; left: 500px; text-align: justify;\">\r\n<table class=\"picture\" style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 60px 0px 60px -110px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0px; width: 820px; float: none; font-family: sans-serif; line-height: 1.5; color: #444444;\" align=\"center\">\r\n<tbody style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%;\">\r\n<tr style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%;\">\r\n<td class=\"pic\" style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%; position: relative; cursor: pointer;\"><img class=\"optimized\" style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%; max-width: 100%; display: block; height: auto; width: 820px;\" src=\"https://znews-photo.zadn.vn/w820/Uploaded/lce_vjrcc/2018_12_24/sunda_strait_3.jpg\" alt=\"Tham hoa don dap nam 2018, Indonesia chim trong tang thuong hinh anh 1\" width=\"1620\" height=\"1080\" /></td>\r\n</tr>\r\n<tr style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%;\">\r\n<td class=\"pCaption caption\" style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 14px 82px 30px; border: 0px; outline: 0px; font-size: 18px; vertical-align: baseline; background: transparent; text-size-adjust: 100%; position: relative; color: #333333; line-height: 1.5; text-align: left;\"><strong style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%;\">S&oacute;ng tháº§n eo biá»ƒn Sunda</strong>: Quang cáº£nh nh&igrave;n tá»« tr&ecirc;n kh&ocirc;ng cá»§a n&uacute;i lá»­a Anak Krakatau khi phun tr&agrave;o táº¡i eo biá»ƒn Sunda á»Ÿ Nam Lampung, Indonesia, ng&agrave;y 23/12. &Iacute;t nháº¥t 222 ngÆ°á»i cháº¿t v&agrave; h&agrave;ng trÄƒm ngÆ°á»i bá»‹ thÆ°Æ¡ng trong tháº£m há»a xáº£y ra v&agrave;o tá»‘i 22/12 á»Ÿ Indonesia. áº¢nh:&nbsp;<em style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%;\">Reuters</em>.</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<table class=\"picture\" style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 60px 0px 60px -110px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0px; width: 820px; font-family: sans-serif; line-height: 1.5; color: #444444;\" align=\"center\">\r\n<tbody style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%;\">\r\n<tr style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%;\">\r\n<td class=\"pic\" style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%; position: relative; cursor: pointer;\"><img class=\"optimized\" style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%; max-width: 100%; display: block; height: auto; width: 820px;\" src=\"https://znews-photo.zadn.vn/w820/Uploaded/lce_vjrcc/2018_12_24/sunda_strait_4.jpg\" alt=\"Tham hoa don dap nam 2018, Indonesia chim trong tang thuong hinh anh 2\" width=\"2400\" height=\"1647\" /></td>\r\n</tr>\r\n<tr style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%;\">\r\n<td class=\"pCaption caption\" style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 14px 82px 30px; border: 0px; outline: 0px; font-size: 18px; vertical-align: baseline; background: transparent; text-size-adjust: 100%; position: relative; color: #333333; line-height: 1.5; text-align: left;\">C&aacute;c chuy&ecirc;n gia cho ráº±ng&nbsp;vá»¥ phun tr&agrave;o cá»§a n&uacute;i lá»­a Anak Krakatau k&egrave;m theo t&aacute;c Ä‘á»™ng cá»§a thá»§y triá»u l&uacute;c trÄƒng tr&ograve;n Ä‘&atilde; g&acirc;y ra lá»Ÿ Ä‘áº¥t v&agrave; s&oacute;ng tháº§n. Trong áº£nh l&agrave; pháº£n á»©ng cá»§a má»™t nam thanh ni&ecirc;n sau khi x&aacute;c Ä‘á»‹nh ngÆ°á»i th&acirc;n cá»§a m&igrave;nh trong sá»‘ thi thá»ƒ c&aacute;c náº¡n nh&acirc;n s&oacute;ng tháº§n h&ocirc;m 23/12. áº¢nh:&nbsp;<em style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%;\">AP</em>.</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<table class=\"picture\" style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 60px 0px 60px -110px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0px; width: 820px; font-family: sans-serif; line-height: 1.5; color: #444444;\" align=\"center\">\r\n<tbody style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%;\">\r\n<tr style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%;\">\r\n<td class=\"pic\" style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%; position: relative; cursor: pointer;\"><img class=\"optimized\" style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%; max-width: 100%; display: block; height: auto; width: 820px;\" src=\"https://znews-photo.zadn.vn/w820/Uploaded/lce_vjrcc/2018_12_24/lion_air.jpg\" alt=\"Tham hoa don dap nam 2018, Indonesia chim trong tang thuong hinh anh 3\" width=\"800\" height=\"449\" /></td>\r\n</tr>\r\n<tr style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%;\">\r\n<td class=\"pCaption caption\" style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 14px 82px 30px; border: 0px; outline: 0px; font-size: 18px; vertical-align: baseline; background: transparent; text-size-adjust: 100%; position: relative; color: #333333; line-height: 1.5; text-align: left;\"><strong style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%;\">Vá»¥ rÆ¡i m&aacute;y bay Lion Air</strong>: Gáº§n 200 ngÆ°á»i Ä‘&atilde; thiá»‡t máº¡ng há»“i th&aacute;ng 10 khi chuyáº¿n bay JT610 cá»§a Lion Air Ä‘i tá»« Jakarta Ä‘áº¿n Ä‘áº£o Bangka rÆ¡i xuá»‘ng biá»ƒn chá»‰ v&agrave;i ph&uacute;t sau khi cáº¥t c&aacute;nh. áº¢nh chá»¥p c&aacute;c máº£nh vá»¡, váº­t d&ugrave;ng c&aacute; nh&acirc;n cá»§a h&agrave;nh kh&aacute;ch Ä‘Æ°á»£c vá»›t l&ecirc;n sau vá»¥ tai náº¡n. áº¢nh:<em style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%;\">&nbsp;AFP</em>.</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<table class=\"picture\" style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 60px 0px 60px -110px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0px; width: 820px; font-family: sans-serif; line-height: 1.5; color: #444444;\" align=\"center\">\r\n<tbody style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%;\">\r\n<tr style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%;\">\r\n<td class=\"pic\" style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%; position: relative; cursor: pointer;\"><img class=\"optimized\" style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%; max-width: 100%; display: block; height: auto; width: 820px;\" src=\"https://znews-photo.zadn.vn/w820/Uploaded/lce_vjrcc/2018_12_24/lion_air_3.jpg\" alt=\"Tham hoa don dap nam 2018, Indonesia chim trong tang thuong hinh anh 4\" width=\"2200\" height=\"1462\" /></td>\r\n</tr>\r\n<tr style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%;\">\r\n<td class=\"pCaption caption\" style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 14px 82px 30px; border: 0px; outline: 0px; font-size: 18px; vertical-align: baseline; background: transparent; text-size-adjust: 100%; position: relative; color: #333333; line-height: 1.5; text-align: left;\">Káº¿t quáº£ kiá»ƒm tra há»™p Ä‘en cho tháº¥y nguy&ecirc;n nh&acirc;n tai náº¡n c&oacute; thá»ƒ xuáº¥t ph&aacute;t tá»« trá»¥c tráº·c ká»¹ thuáº­t cá»§a m&aacute;y bay Boeing 737 Max 8. Trong áº£nh, th&agrave;nh vi&ecirc;n cá»§a á»¦y ban An to&agrave;n Giao th&ocirc;ng Quá»‘c gia Indonesia kiá»ƒm tra má»™t Ä‘á»™ng cÆ¡ tua-bin tá»« m&aacute;y bay Lion Air Ä‘Æ°á»£c trá»¥c vá»›t v&agrave; Ä‘Æ°a tá»›i cáº£ng Tanjung Priok á»Ÿ Jakarta h&ocirc;m 4/11. áº¢nh:&nbsp;<em style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%;\">Reuters</em>.</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<table class=\"picture\" style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 60px 0px 60px -110px; padding: 0px; border: 0px; outline: 0px; font-size: 14px; vertical-align: baseline; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; text-size-adjust: 100%; border-collapse: collapse; border-spacing: 0px; width: 820px; font-family: sans-serif; line-height: 1.5; color: #444444;\" align=\"center\">\r\n<tbody style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%;\">\r\n<tr style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%;\">\r\n<td class=\"pic\" style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%; position: relative; cursor: pointer;\"><img class=\"optimized\" style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%; max-width: 100%; display: block; height: auto; width: 820px;\" src=\"https://znews-photo.zadn.vn/w820/Uploaded/lce_vjrcc/2018_12_24/sulawesi.jpg\" alt=\"Tham hoa don dap nam 2018, Indonesia chim trong tang thuong hinh anh 5\" width=\"1920\" height=\"1280\" /></td>\r\n</tr>\r\n<tr style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%;\">\r\n<td class=\"pCaption caption\" style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 14px 82px 30px; border: 0px; outline: 0px; font-size: 18px; vertical-align: baseline; background: transparent; text-size-adjust: 100%; position: relative; color: #333333; line-height: 1.5; text-align: left;\"><strong style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%;\">Äá»™ng Ä‘áº¥t v&agrave; s&oacute;ng tháº§n Palu:&nbsp;</strong>V&agrave;o th&aacute;ng 9, má»™t tráº­n Ä‘á»™ng Ä‘áº¥t Ä‘&atilde; táº¥n c&ocirc;ng khu vá»±c Palu tr&ecirc;n Ä‘áº£o Sulawesi á»Ÿ miá»n Báº¯c Indonesia. Tráº­n Ä‘á»™ng Ä‘áº¥t máº¡nh 7,5 Ä‘á»™ Ä‘&atilde; g&acirc;y ra s&oacute;ng tháº§n v&agrave; tháº£m há»a \"k&eacute;p\" Ä‘&atilde; t&agrave;n ph&aacute; khu vá»±c, biáº¿n pháº§n lá»›n Palu v&agrave; c&aacute;c thá»‹ tráº¥n kh&aacute;c th&agrave;nh Ä‘á»‘ng Ä‘á»• n&aacute;t. áº¢nh chá»¥p má»™t nh&agrave; thá» Há»“i gi&aacute;o ngáº­p nÆ°á»›c sau tráº­n Ä‘á»™ng Ä‘áº¥t v&agrave; s&oacute;ng tháº§n á»Ÿ Palu. áº¢nh:&nbsp;<em style=\"box-sizing: border-box; text-rendering: geometricprecision; margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; text-size-adjust: 100%;\">AP</em>.</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n</div>'),
-(24, '24-12-2018', 'Silent Night: BÃ i hÃ¡t 200 tuá»•i pháº£i nghe dá»‹p GiÃ¡ng Sinh', 'Ã‚m nháº¡c', 'TuanIT', 'silent-1-1545649340-width1484height2198.jpg', '<div class=\"sapobaiviet\" style=\"font-family: \'Open Sans\', Arial, Helvetica, sans-serif; font-weight: bold; margin-bottom: 20px; text-align: justify;\">\r\n<h3 style=\"font-size: 14px; margin: 0px; display: inline;\"><strong style=\"color: gray;\">(D&acirc;n Viá»‡t)</strong>&nbsp;Vá»›i nhiá»u ngÆ°á»i, b&ecirc;n cáº¡nh c&aacute;c giai Ä‘iá»‡u s&ocirc;i Ä‘á»™ng nhÆ° \"Jingle Bell\", \"We wish you a Merry Christmas\" hay \"O Holy Night\", ng&agrave;y lá»… Gi&aacute;ng Sinh sáº½ thiáº¿u trá»n váº¹n náº¿u thiáº¿u Ä‘i giai Ä‘iá»‡u \"Silent Night\" ná»•i tiáº¿ng. Tháº¿ nhÆ°ng, kh&ocirc;ng pháº£i ai cÅ©ng biáº¿t vá» gá»‘c g&aacute;c cá»§a b&agrave;i h&aacute;t 200 nÄƒm tuá»•i n&agrave;y.</h3>\r\n</div>\r\n<div class=\"clear\" style=\"font-family: \'Open Sans\', Arial, Helvetica, sans-serif; clear: both;\">&nbsp;</div>\r\n<div class=\"tinlienquan\" style=\"font-family: \'Open Sans\', Arial, Helvetica, sans-serif;\">\r\n<div class=\"fb-like fb_iframe_widget\" style=\"display: inline-block; position: relative;\" data-href=\"http://danviet.vn/the-gioi/silent-night-bai-hat-200-tuoi-phai-nghe-dip-giang-sinh-942046.html\" data-width=\"55\" data-layout=\"button\" data-action=\"like\" data-show-faces=\"false\" data-share=\"true\"><span style=\"display: inline-block; position: relative; text-align: justify; vertical-align: bottom; width: 112px; height: 20px;\"><iframe class=\"\" style=\"position: absolute; border-width: initial; border-style: none; visibility: visible; width: 112px; height: 20px;\" title=\"fb:like Facebook Social Plugin\" src=\"https://www.facebook.com/plugins/like.php?action=like&amp;app_id=489083697874980&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fconnect%2Fxd_arbiter%2Fr%2Fj-GHT1gpo6-.js%3Fversion%3D43%23cb%3Df28e0c7dbabc0f8%26domain%3Ddanviet.vn%26origin%3Dhttp%253A%252F%252Fdanviet.vn%252Ff40c22e7bd88b4%26relation%3Dparent.parent&amp;container_width=485&amp;href=http%3A%2F%2Fdanviet.vn%2Fthe-gioi%2Fsilent-night-bai-hat-200-tuoi-phai-nghe-dip-giang-sinh-942046.html&amp;layout=button&amp;locale=vi_VN&amp;sdk=joey&amp;share=true&amp;show_faces=false&amp;width=55\" name=\"f26e0f585d4051\" width=\"55px\" height=\"1000px\" frameborder=\"0\" scrolling=\"no\" allowfullscreen=\"true\"></iframe></span></div>\r\n<span class=\"footerlike\" style=\"vertical-align: middle;\"><span class=\"footerlike\" style=\"vertical-align: middle;\"><a></a>&nbsp;&nbsp;&nbsp;<a></a></span></span>\r\n<div class=\"g-plusone\" data-size=\"medium\" data-annotation=\"none\" data-href=\"http://danviet.vn/the-gioi/silent-night-bai-hat-200-tuoi-phai-nghe-dip-giang-sinh-942046.html\">&nbsp;</div>\r\n</div>\r\n<div class=\"tintin\" style=\"font-family: \'Open Sans\', Arial, Helvetica, sans-serif; float: left; width: 465px; height: auto; background: none 0px 0px repeat scroll #eef9e9; margin-top: 10px; padding: 10px;\">\r\n<ul class=\"listNewsbvctlq\" style=\"margin: 0px; padding: 0px;\">\r\n<li style=\"display: block; list-style: none; padding: 0px;\">\r\n<h2 style=\"font-size: 14px; margin: 0px; display: inline;\"><a class=\"icon\" style=\"text-decoration-line: none; color: #363636; display: inline-block; padding: 0px 0px 4px 10px; margin-bottom: 3px; background: url(\'../images/greendot.gif\') 0px 8px no-repeat;\" href=\"http://danviet.vn/the-gioi/chinh-phu-dong-cua-tong-dai-ong-gia-noel-my-van-hoat-dong-942027.html\">Ch&iacute;nh phá»§ Ä‘&oacute;ng cá»­a, \"Tá»•ng Ä‘&agrave;i &ocirc;ng gi&agrave; Noel\" Má»¹ váº«n hoáº¡t Ä‘á»™ng</a></h2>\r\n</li>\r\n<li style=\"display: block; list-style: none; padding: 0px;\">\r\n<h2 style=\"font-size: 14px; margin: 0px; display: inline;\"><a class=\"icon\" style=\"text-decoration-line: none; color: #363636; display: inline-block; padding: 0px 0px 4px 10px; margin-bottom: 3px; background: url(\'../images/greendot.gif\') 0px 8px no-repeat;\" href=\"http://danviet.vn/the-gioi/lanh-dao-anh-choc-ngoay-nga-trong-thong-diep-chuc-mung-giang-sinh-942000.html\">L&atilde;nh Ä‘áº¡o Anh chá»c ngo&aacute;y Nga trong th&ocirc;ng Ä‘iá»‡p Ch&uacute;c má»«ng Gi&aacute;ng Sinh</a></h2>\r\n</li>\r\n<li style=\"display: block; list-style: none; padding: 0px;\">\r\n<h2 style=\"font-size: 14px; margin: 0px; display: inline;\"><a class=\"icon\" style=\"text-decoration-line: none; color: #363636; display: inline-block; padding: 0px 0px 4px 10px; margin-bottom: 3px; background: url(\'../images/greendot.gif\') 0px 8px no-repeat;\" href=\"http://danviet.vn/the-gioi/video-hang-ngan-ong-gia-noel-chay-thi-chuc-mung-giang-sinh-941882.html\">Video: HaÌ€ng ngaÌ€n &ocirc;ng giaÌ€ Noel chaÌ£y thi Ch&uacute;c má»«ng Gi&aacute;ng Sinh</a></h2>\r\n</li>\r\n</ul>\r\n</div>\r\n<div class=\"clear\" style=\"font-family: \'Open Sans\', Arial, Helvetica, sans-serif; clear: both;\">&nbsp;</div>\r\n<div class=\"contentbaiviet\" style=\"font-family: \'Open Sans\', Arial, Helvetica, sans-serif; text-align: justify;\">\r\n<p>&nbsp;</p>\r\n<div align=\"center\">\r\n<div class=\"media-player\" style=\"width: 485px; height: 350px;\">\r\n<div id=\"zplayer_980401\" class=\"zPlayer_mainContainer\" style=\"overflow: hidden; top: 0px; background: #000000; position: relative; border: 0px solid; width: 485px; height: 350px; z-index: 9999 !important;\" data-player-idx=\"0\">\r\n<div class=\"zPlayer_playerElement\" style=\"background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; position: absolute; top: 0px; left: 0px; bottom: 39px; right: 0px;\"><video class=\"zPlayer_contentElement\" style=\"width: 485px; height: 311px; z-index: -9999 !important;\" preload=\"none\"></video></div>\r\n<div class=\"zPlayer_adContainer\" style=\"position: absolute; cursor: pointer; top: 0px; left: 0px; right: 0px; bottom: 0px; background-image: url(\'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfQAAAFFCAMAAAAtnu9oAAACFlBMVEUAAAAHN30IOH4IOH4ALncCMXoIN30FNXwIN30FNn0IN33V3ekAGGkAFGcIN30ALHYIN30AJnIINn0AHWwIN30IN30AFmgAEmUAIW8AFWcIN30AEmUAHGv///8IN30AFWcBK3UAJHH///////8IN30CLncIN30IN30IN30AIG4AKXQIN33///8AGWoIOX8IN30AKHQIN33///////8AI3AJN30AGmuhsc0aRYYAEGQAFGcIN30IN30IN33///////8IN32Dm75tibIIN30IN33+///t8fYIN30AK3UJN30MNn0AHGwIN33l6vJyjbVbe6pVd6cUQYQnUI4TO4AIN30IN30IN33y9PhhfatCZptMbqENO4AIN30IN33///9EZ5wIOX82WJMPPYECKHPf5u/d5O3M1uStvdRqg69mhK9QcKM6XpZAYZjO2ObG0eGAmLyMoMJ+lrscSIgtV5IIN30qToz////4+fzv8/fV3emzw9gHN30cQoQIN335+/zy9Pja4ezAzN6svNSbrst4krgoUo709vno7fTi6PDS3Om3xNmLocKQpsWFnsD9/v71+PujtM+Wqsi4x9umutKFnb+WqsiJoMJ6lLrd4+3Z4ezF0eHAzN4yWZMTP4MIN337/P3p7vTX3em3w9hhgq42X5f4+fyVqcinuNGTqMaMosN/mb0lToynuNG+zN6vwNaYrMkSQYT////h6Do8AAAAsXRSTlMAa2tsaWt6WG1sfcNeVHBocmdbYn53XVplWIFWYPt1W1RT/flzVyUaf1NlTfdTbGVjDOrkYVNWnGBXUVBBFO7nOqCEPjTg0W9mYlhVKsuGenZmZFtELgbVgHRzXRAD8m1qZGFXyca6sIN/eHFpvrmYj49qZ2Bf9dnTvaRnWx/d3MW7oJWMbuXMyMG4pZON3NSup6abmZWThsC+s7Nsaknqz8awemrnsqWknol0uaqhuW5CGtLnAAARJElEQVR42uzBgQAAAACAoP2pF6kCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABmDw4EAAAAAID8XxtBVVVVVVVVVVVVVVVVVVWFXTt9SiKM4wC+++zh7gYLLLuAyx0ktEagQoVFUeRBTgYFlXaYGNNk2YHRYYdmZTYddo7Z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\'), url(\'http://streaming1.danviet.vn/upload/4-2018/images/2018-12-24/1545649636-gi--ng-sinh.jpg\'); background-size: 100%, 100% 100%; background-repeat: no-repeat; background-position: center center; overflow: hidden; z-index: 999999 !important;\">&nbsp;</div>\r\n</div>\r\n</div>\r\n</div>\r\n<p style=\"color: #0000ff; font-style: italic; text-align: center;\">Th&aacute;nh ca \"Silent Night\" phi&ecirc;n báº£n tiáº¿ng Anh. Video: Youtube.</p>\r\n<p>Theo Washington Post, náº¿u kh&ocirc;ng c&oacute; má»™t cáº­u b&eacute; c&oacute; t&ecirc;n Joseph Mohr, tháº¿ giá»›i sáº½ kh&ocirc;ng c&oacute; b&agrave;i ca Gi&aacute;ng sinh báº¥t há»§ qua nhiá»u tháº¿ há»‡. Sinh ra trong má»™t gia Ä‘&igrave;nh thá»£ Ä‘an ngh&egrave;o á»Ÿ Salzburg (&Aacute;o), cha bá» Ä‘i, Morh Ä‘&atilde; pháº£i Ä‘áº¿n á»Ÿ vá»›i b&agrave; ngoáº¡i vá»‘n cÅ©ng ngh&egrave;o khá»• t&uacute;ng thiáº¿u. Má»—i khi Ä‘&oacute;i r&eacute;t, cáº­u b&eacute; thÆ°á»ng c&oacute; th&oacute;i quen Ä‘i lang thang Ä‘á»ƒ qu&ecirc;n Ä‘i cÆ¡n r&eacute;t, cÆ¡n Ä‘&oacute;i cá»“n c&agrave;o. Tháº¿ nhÆ°ng, ch&iacute;nh nhá»¯ng láº§n cuá»‘c bá»™ Ä‘&oacute; Ä‘&atilde; l&agrave;m thay Ä‘á»•i cuá»™c Ä‘á»i Joseph Mohr.</p>\r\n<p>Trong má»™t láº§n cuá»‘c bá»™, Mohr Ä‘&atilde; gh&eacute; thÄƒm má»™t nh&agrave; thá» trong l&agrave;ng. Táº¡i Ä‘&acirc;y, cáº­u gáº·p Johann Hiernle &ndash; ngÆ°á»i chá»‰ huy d&agrave;n há»£p xÆ°á»›ng cá»§a nh&agrave; thá» - v&agrave; sau Ä‘&oacute; quyáº¿t Ä‘á»‹nh tham gia sinh hoáº¡t nh&agrave; thá». Nháº­n tháº¥y Morh l&agrave; ngÆ°á»i c&oacute; t&agrave;i nÄƒng thÆ¡ cÆ¡, &acirc;m nháº¡c, &ocirc;ng Hiernle Ä‘&atilde; cho cáº­u v&agrave;o há»c táº¡i má»™t trÆ°á»ng ngá»¯ vÄƒn ná»•i tiáº¿ng táº¡i Kremsmnster (&Aacute;o). Khi ra trÆ°á»ng, Morh tiáº¿p tá»¥c há»c, tá»‘t nghiá»‡p táº¡i má»™t trÆ°á»ng d&ograve;ng v&agrave; Ä‘Æ°á»£c phong chá»©c linh má»¥c khi má»›i vá»«a 23 tuá»•i. Khi Ä‘Æ°á»£c cá»­ vá» má»™t nh&agrave; thá» á»Ÿ miá»n n&uacute;i xinh Ä‘áº¹p, vá»‹ linh má»¥c tráº» tuá»•i Ä‘&atilde; s&aacute;ng t&aacute;c ráº¥t nhiá»u b&agrave;i thÆ¡.</p>\r\n<p>V&agrave;o má»™t buá»•i s&aacute;ng ná» trong m&ugrave;a Noel, khung cáº£nh tuyáº¿t tráº¯ng phá»§ má»i nÆ¡i c&ugrave;ng vá»›i kh&ocirc;ng kh&iacute; y&ecirc;n áº¯ng cá»§a Ä‘áº¥t trá»i Ä‘&atilde; cho Morh cáº£m há»©ng s&aacute;ng t&aacute;c. Ngay h&ocirc;m áº¥y, Joseph Morh Ä‘&atilde; viáº¿t má»™t b&agrave;i thÆ¡ ngáº¯n mang t&ecirc;n &ldquo;Stille Nacht! Heilige Nacht!&rdquo; (t&ecirc;n tiáº¿ng Anh l&agrave; &ldquo;Silent Night! Holy Night!&rdquo;; á»Ÿ Viá»‡t Nam thÆ°á»ng Ä‘Æ°á»£c dá»‹ch l&agrave; &ldquo;<a style=\"text-decoration-line: none;\" href=\"http://danviet.vn/redirectout.php?to=aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1mTmlheFBfUTFKVQ==&amp;tk=1c1d69fbd8ecacb34e5ef7d1c92f4632\" rel=\"nofollow\">Ä&ecirc;m Th&aacute;nh v&ocirc; c&ugrave;ng</a>&rdquo;) &ndash; sau n&agrave;y trá»Ÿ th&agrave;nh lá»i cá»§a b&agrave;i h&aacute;t &ldquo;Silent Night&rdquo; báº£n tiáº¿ng Äá»©c.</p>\r\n<p style=\"color: #0000ff; font-style: italic; text-align: center;\"><span class=\"img-share\" style=\"position: relative; display: block;\"><span id=\"shareImage-0\" class=\"shareImage\" style=\"display: block; height: 20px; position: absolute; left: 35px; bottom: 10px; opacity: 0;\"><img style=\"border: 0px; max-width: 480px; height: auto !important;\" src=\"http://streaming1.danviet.vn/images/2014/share-fb.gif\" alt=\"\" width=\"67\" height=\"20\" />&nbsp;<span title=\"\"><img style=\"border: 0px; max-width: 480px; height: auto !important;\" src=\"http://streaming1.danviet.vn/images/2014/share-gg.gif\" alt=\"\" width=\"67\" height=\"20\" /></span></span><img class=\"news-image\" style=\"border: 0px; max-width: 480px; height: 333px; width: 500px;\" title=\"Silent Night: B&agrave;i h&aacute;t 200 tuá»•i pháº£i nghe dá»‹p Gi&aacute;ng Sinh h&igrave;nh áº£nh 1\" src=\"http://streaming1.danviet.vn/upload/4-2018/images/2018-12-24/silent-1545649214-width1484height989.jpg\" alt=\"silent night: bai hat 200 tuoi phai nghe dip giang sinh hinh anh 1\" width=\"100%\" /></span></p>\r\n<p style=\"color: #0000ff; font-style: italic; text-align: center;\">B&agrave;i th&aacute;nh ca \"Silent Night\" Ä‘Æ°á»£c h&aacute;t láº§n Ä‘áº§u ti&ecirc;n á»Ÿ Nh&agrave; thá» Th&aacute;nh Nicholas (Oberndorf, &Aacute;o). Tr&ecirc;n áº£nh l&agrave; Nh&agrave; nguyá»‡n Silent Night. áº¢nh: EPA.</p>\r\n<p>Sau n&agrave;y, cha Morh Ä‘Æ°á»£c Gi&aacute;o há»™i Ä‘iá»u chuyá»ƒn tá»›i nh&agrave; thá» Th&aacute;nh Nicholas. V&agrave;o Ä‘&ecirc;m 23.12.1818 &ndash; má»™t ng&agrave;y trÆ°á»›c Ä‘&ecirc;m Gi&aacute;ng Sinh, c&acirc;y Ä‘&agrave;n dÆ°Æ¡ng cáº§m cá»§a nh&agrave; thá» bá»—ng bá»‹ há»ng. Kh&ocirc;ng muá»‘n Ä‘á»ƒ Ä‘&ecirc;m Gi&aacute;ng Sinh thiáº¿u lá»… nháº¡c, cha Morh Ä‘&atilde; quyáº¿t Ä‘á»‹nh cho ca Ä‘o&agrave;n h&aacute;t c&ugrave;ng vá»›i tiáº¿ng Ä‘á»‡m guitar. Nhá»› láº¡i b&agrave;i thÆ¡ ngáº¯n &ldquo;Stille Nacht! Heilige Nacht!&rdquo; l&uacute;c trÆ°á»›c, Morh Ä‘&atilde; Ä‘á» nghá»‹ ngÆ°á»i chÆ¡i Ä‘&agrave;n nh&agrave; thá» Franz Gruber lo pháº§n nháº¡c.</p>\r\n<p>Trong pháº§n biá»ƒu diá»…n, vá»‹ linh má»¥c Ä‘á»‡m guitar v&agrave; h&aacute;t giá»ng nam cao c&ograve;n Franz h&aacute;t giá»ng tráº§m. Cá»© sau má»—i Ä‘oáº¡n, ca Ä‘o&agrave;n nh&agrave; thá» láº¡i c&ugrave;ng h&ograve;a chung pháº§n Ä‘iá»‡p kh&uacute;c. V&agrave;o gáº§n ná»­a Ä‘&ecirc;m, gi&aacute;o d&acirc;n trong v&ugrave;ng tÆ°á»Ÿng nhÆ° thÆ°á»ng lá»‡ ngÆ°á»i chÆ¡i Ä‘&agrave;n Ä‘áº¡i phong cáº§m táº¥u l&ecirc;n nhá»¯ng b&agrave;i ca má»«ng Gi&aacute;ng Sinh h&ugrave;ng tr&aacute;ng... NhÆ°ng kh&ocirc;ng, thá»© m&agrave; há» Ä‘Æ°á»£c nghe Ä‘&ecirc;m Ä‘áº¥y l&agrave; má»™t báº£n nháº¡c &ldquo;Silent Night&rdquo; vá»›i tiáº¿ng Ä‘&agrave;n guitar nháº¹ nh&agrave;ng v&agrave; nhá»¯ng giá»ng h&aacute;t th&aacute;nh th&oacute;t, luyáº¿n l&aacute;y pháº£ng pháº¥t &acirc;m hÆ°á»Ÿng d&acirc;n ca v&ugrave;ng n&ocirc;ng th&ocirc;n nÆ°á»›c &Aacute;o, cháº§m cháº­m lan tá»a ra trong tÄ©nh láº·ng thinh kh&ocirc;ng cá»§a má»™t thá»i kháº¯c thi&ecirc;ng li&ecirc;ng&hellip;. Vá»›i nhá»¯ng ngÆ°á»i c&oacute; máº·t táº¡i nh&agrave; thá» Th&aacute;nh Nicholas h&ocirc;m áº¥y, Ä‘&oacute; l&agrave; má»™t Ä‘&ecirc;m Gi&aacute;ng Sinh huyá»n diá»‡u v&agrave; Ä‘&aacute;ng nhá»›.</p>\r\n<p style=\"color: #0000ff; font-style: italic; text-align: center;\"><span class=\"img-share\" style=\"position: relative; display: block;\"><span id=\"shareImage-1\" class=\"shareImage\" style=\"display: block; height: 20px; position: absolute; left: 35px; bottom: 10px; opacity: 0;\"><img style=\"border: 0px; max-width: 480px; height: auto !important;\" src=\"http://streaming1.danviet.vn/images/2014/share-fb.gif\" alt=\"\" width=\"67\" height=\"20\" />&nbsp;<span title=\"\"><img style=\"border: 0px; max-width: 480px; height: auto !important;\" src=\"http://streaming1.danviet.vn/images/2014/share-gg.gif\" alt=\"\" width=\"67\" height=\"20\" /></span></span><img class=\"news-image\" style=\"border: 0px; max-width: 480px; height: 741px; width: 500px;\" title=\"Silent Night: B&agrave;i h&aacute;t 200 tuá»•i pháº£i nghe dá»‹p Gi&aacute;ng Sinh h&igrave;nh áº£nh 2\" src=\"http://streaming1.danviet.vn/upload/4-2018/images/2018-12-24/silent-1-1545649340-width1484height2198.jpg\" alt=\"silent night: bai hat 200 tuoi phai nghe dip giang sinh hinh anh 2\" width=\"100%\" /></span></p>\r\n<p style=\"color: #0000ff; font-style: italic; text-align: center;\">Ch&acirc;n dung gÆ°Æ¡ng k&iacute;nh m&agrave;u cá»§a nh&agrave; soáº¡n nháº¡c&nbsp;Franz Xaver Gruber táº¡i Nh&agrave; nguyá»‡n Silent Night á»Ÿ&nbsp;Oberndorf (&Aacute;o). áº¢nh: Getty.</p>\r\n<p>Sau Gi&aacute;ng sinh nÄƒm 1818, linh má»¥c Joseph Mohr láº¡i Ä‘Æ°á»£c thuy&ecirc;n chuyá»ƒn Ä‘áº¿n nÆ¡i kh&aacute;c v&agrave; trong suá»‘t 7 nÄƒm sau Ä‘&oacute;, giai Ä‘iá»‡u &ldquo;Silent Night&rdquo; Ä‘&atilde; cháº³ng bao giá» Ä‘Æ°á»£c cáº¥t l&ecirc;n. B&agrave;i h&aacute;t báº¥t há»§ n&agrave;y chá»‰ Ä‘Æ°á»£c t&igrave;m tháº¥y khi má»™t ngÆ°á»i thá»£ t&ecirc;n Karl Mauracher Ä‘áº¿n sá»­a Ä‘&agrave;n cho nh&agrave; thá» Th&aacute;nh Nicholas. Sau khi sá»­a xong Ä‘&agrave;n, Mauracher má»i &ocirc;ng Gruber thá»­ Ä‘&agrave;n. Ngay khi nghe Ä‘Æ°á»£c giai Ä‘iá»‡u &ldquo;Silent Night&rdquo;, Mauracher kh&ocirc;ng khá»i cho&aacute;ng ngá»£p trÆ°á»›c váº» Ä‘áº¹p cá»§a b&agrave;i h&aacute;t v&agrave; Ä‘&atilde; xin Ä‘em cáº£ nháº¡c v&agrave; lá»i vá» l&agrave;ng Kapfing cá»§a m&igrave;nh.</p>\r\n<p>Táº¡i Kapfing, hai ban nháº¡c gia Ä‘&igrave;nh ná»•i tiáº¿ng l&agrave; Rainers v&agrave; Strassers Ä‘Æ°á»£c má»i thÆ°á»Ÿng thá»©c &ldquo;Silent Night&rdquo;. Bá»‹ cuá»‘n h&uacute;t trÆ°á»›c giai Ä‘iá»‡u th&aacute;nh ca &ecirc;m Ä‘á»m, Ä‘i v&agrave;o l&ograve;ng ngÆ°á»i, hai nh&agrave; Rainers v&agrave; Strassers Ä‘&atilde; quyáº¿t Ä‘á»‹nh Ä‘Æ°a b&agrave;i h&aacute;t má»›i v&agrave;o c&aacute;c lá»… há»™i &acirc;m nháº¡c má»«ng Gi&aacute;ng Sinh. Sau Ä‘&oacute;, nh&agrave; Strasser Ä‘&atilde; Ä‘Æ°a &ldquo;Silent Night&rdquo; v&ograve;ng quanh Báº¯c &Acirc;u. Äáº¿n nÄƒm 1834, há» biá»ƒu diá»…n cho Äá»©c vua Frederick William Ä‘á»‡ IV cá»§a nÆ°á»›c Phá»•, qu&aacute; áº¥n tÆ°á»£ng, vua William Ä‘á»‡ IV truyá»n lá»‡nh ca Ä‘o&agrave;n cá»§a cung Ä‘&igrave;nh pháº£i xÆ°á»›ng b&agrave;i h&aacute;t n&agrave;y v&agrave;o má»—i dá»‹p Gi&aacute;ng Sinh.</p>\r\n<p style=\"color: #0000ff; font-style: italic; text-align: center;\"><span class=\"img-share\" style=\"position: relative; display: block;\"><span id=\"shareImage-2\" class=\"shareImage\" style=\"display: block; height: 20px; position: absolute; left: 35px; bottom: 10px; opacity: 0;\"><img style=\"border: 0px; max-width: 480px; height: auto !important;\" src=\"http://streaming1.danviet.vn/images/2014/share-fb.gif\" alt=\"\" width=\"67\" height=\"20\" />&nbsp;<span title=\"\"><img style=\"border: 0px; max-width: 480px; height: auto !important;\" src=\"http://streaming1.danviet.vn/images/2014/share-gg.gif\" alt=\"\" width=\"67\" height=\"20\" /></span></span><img class=\"news-image\" style=\"border: 0px; max-width: 480px; height: 384px; width: 500px;\" title=\"Silent Night: B&agrave;i h&aacute;t 200 tuá»•i pháº£i nghe dá»‹p Gi&aacute;ng Sinh h&igrave;nh áº£nh 3\" src=\"http://streaming1.danviet.vn/upload/4-2018/images/2018-12-24/silent-2-1545649457-width1301height1000.jpg\" alt=\"silent night: bai hat 200 tuoi phai nghe dip giang sinh hinh anh 3\" width=\"100%\" /></span></p>\r\n<p style=\"color: #0000ff; font-style: italic; text-align: center;\">áº¢nh chá»¥p báº£n nháº¡c \"Silent Night\" Ä‘Æ°á»£c viáº¿t báº±ng tay. áº¢nh: Báº£o t&agrave;ng&nbsp;Salzburg .</p>\r\n<p>Trong khi Ä‘&oacute;, nh&agrave; Rainers th&igrave; láº¡i sang Má»¹ v&agrave;o nÄƒm 1839 v&agrave; Ä‘&atilde; biá»ƒu diá»…n Silent Night báº±ng tiáº¿ng Äá»©c ngay táº¡i Ä&agrave;i tÆ°á»Ÿng niá»‡m Alexander Hamilton, náº±m b&ecirc;n ngo&agrave;i khu&ocirc;n vi&ecirc;n nh&agrave; thá» Trinity cá»§a New York. NÄƒm 1863, Silent Night Ä‘Æ°á»£c Jane Campbell v&agrave; John Young dá»‹ch sang tiáº¿ng Anh.</p>\r\n<p>Theo Washington Post, Silent Night váº«n Ä‘Æ°á»£c cho l&agrave; cá»§a c&aacute;c thi&ecirc;n t&agrave;i &acirc;m nháº¡c nhÆ° Haydn, Mozart, Beethoven. M&atilde;i Ä‘áº¿n 1995, cuá»™c tranh luáº­n má»›i cháº¥m dá»©t khi ngÆ°á»i ta t&igrave;m láº¡i Ä‘Æ°á»£c báº£n viáº¿t tay cá»§a Joseph Mohr. Ngay tr&ecirc;n g&oacute;c tr&ecirc;n b&ecirc;n pháº£i cá»§a b&agrave;i nháº¡c, Joseph viáº¿t &ldquo;Soáº¡n nháº¡c: Fr. Xav. Gruber&rdquo;.</p>\r\n</div>');
 
 -- --------------------------------------------------------
 
@@ -52,69 +44,82 @@ INSERT INTO `admin_panel` (`id`, `datetime`, `title`, `category`, `author`, `ima
 
 CREATE TABLE `category` (
   `id` int(11) NOT NULL,
-  `datetime` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `creatername` varchar(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Đang đổ dữ liệu cho bảng `category`
---
-
-INSERT INTO `category` (`id`, `datetime`, `name`, `creatername`) VALUES
-(3, '21-12-2018', 'C#', 'TuanIT'),
-(4, '21-12-2018', 'Java', 'TuanIT'),
-(5, '24-12-2018', 'Khoa há»c', 'TuanIT'),
-(6, '24-12-2018', 'Ã‚m nháº¡c', 'TuanIT');
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `comments`
---
-
-CREATE TABLE `comments` (
-  `id` int(11) NOT NULL,
-  `datetime` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `comment` text COLLATE utf8_unicode_ci NOT NULL,
-  `status` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
-  `admin_panel_id` int(11) NOT NULL
+  `namecategory` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created` varchar(20) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `registration`
+-- Cấu trúc bảng cho bảng `comment`
 --
 
-CREATE TABLE `registration` (
-  `id` int(11) NOT NULL,
-  `datetime` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+CREATE TABLE `comment` (
+  `idcomment` int(11) NOT NULL,
+  `idperent` int(11) DEFAULT NULL,
+  `iduser` int(11) NOT NULL,
+  `idpost` int(11) NOT NULL,
+  `idadmin` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `comments` text COLLATE utf8_unicode_ci NOT NULL,
+  `status` varchar(10) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `media`
+--
+
+CREATE TABLE `media` (
+  `idpost` int(11) NOT NULL,
+  `idcategory` int(11) NOT NULL,
+  `idadmin` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `videos` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `content` text COLLATE utf8_unicode_ci NOT NULL,
+  `created` varchar(20) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `post`
+--
+
+CREATE TABLE `post` (
+  `idpost` int(11) NOT NULL,
+  `idcategory` int(11) NOT NULL,
+  `idadmin` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `images` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `content` text COLLATE utf8_unicode_ci NOT NULL,
+  `created` varchar(20) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `user`
+--
+
+CREATE TABLE `user` (
+  `iduser` int(11) NOT NULL,
   `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `addedby` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Đang đổ dữ liệu cho bảng `registration`
---
-
-INSERT INTO `registration` (`id`, `datetime`, `username`, `password`, `addedby`) VALUES
-(3, '24-12-2018', '1800006171', 'sssss', 'TuanIT'),
-(4, '24-12-2018', 'gjghjghj', 'hhhhh', 'TuanIT'),
-(5, '24-12-2018', 'tuan123', 'tuan123', 'TuanIT');
 
 --
 -- Chỉ mục cho các bảng đã đổ
 --
 
 --
--- Chỉ mục cho bảng `admin_panel`
+-- Chỉ mục cho bảng `admin`
 --
-ALTER TABLE `admin_panel`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`idadmin`);
 
 --
 -- Chỉ mục cho bảng `category`
@@ -123,51 +128,82 @@ ALTER TABLE `category`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `comments`
+-- Chỉ mục cho bảng `comment`
 --
-ALTER TABLE `comments`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `admin_panel_id` (`admin_panel_id`);
+ALTER TABLE `comment`
+  ADD PRIMARY KEY (`idcomment`),
+  ADD KEY `idpost` (`idpost`),
+  ADD KEY `iduser` (`iduser`);
 
 --
--- Chỉ mục cho bảng `registration`
+-- Chỉ mục cho bảng `media`
 --
-ALTER TABLE `registration`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `media`
+  ADD PRIMARY KEY (`idpost`);
+
+--
+-- Chỉ mục cho bảng `post`
+--
+ALTER TABLE `post`
+  ADD PRIMARY KEY (`idpost`),
+  ADD KEY `idcategory` (`idcategory`);
+
+--
+-- Chỉ mục cho bảng `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`iduser`);
 
 --
 -- AUTO_INCREMENT cho các bảng đã đổ
 --
 
 --
--- AUTO_INCREMENT cho bảng `admin_panel`
+-- AUTO_INCREMENT cho bảng `admin`
 --
-ALTER TABLE `admin_panel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+ALTER TABLE `admin`
+  MODIFY `idadmin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT cho bảng `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
---
--- AUTO_INCREMENT cho bảng `comments`
---
-ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
---
--- AUTO_INCREMENT cho bảng `registration`
---
-ALTER TABLE `registration`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT cho bảng `comment`
+--
+ALTER TABLE `comment`
+  MODIFY `idcomment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT cho bảng `media`
+--
+ALTER TABLE `media`
+  MODIFY `idpost` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT cho bảng `post`
+--
+ALTER TABLE `post`
+  MODIFY `idpost` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT cho bảng `user`
+--
+ALTER TABLE `user`
+  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- Các ràng buộc cho các bảng đã đổ
 --
 
 --
--- Các ràng buộc cho bảng `comments`
+-- Các ràng buộc cho bảng `comment`
 --
-ALTER TABLE `comments`
-  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`admin_panel_id`) REFERENCES `admin_panel` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `comment`
+  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`idpost`) REFERENCES `post` (`idpost`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`iduser`) REFERENCES `user` (`iduser`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `post`
+--
+ALTER TABLE `post`
+  ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`idcategory`) REFERENCES `category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

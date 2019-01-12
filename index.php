@@ -12,19 +12,17 @@
         <meta name="author" content="">
         <title>Trang chủ</title>
         <link rel="shortcut icon" href="./favicon.ico">
-        <!-- Bootstrap core CSS -->
-        <link rel="stylesheet" href="css/bootstrap4.min.css">
-        <link rel="stylesheet" href="css/fontawesome.css">
-        <link rel="stylesheet" href="css/lora.css">
-        <link rel="stylesheet" href="css/opensans.css">
-        <!-- Custom styles for this template -->
-        <link rel="stylesheet" href="css/clean-blog.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&amp;subset=vietnamese">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=vietnamese" rel="stylesheet">
+        <link rel="stylesheet" href="./css/clean-blog.min.css">
         <!-- <base href="../" /> -->
     </head>
 <body>
 
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
     <div class="container">
         <a class="navbar-brand" href="index.php"></a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,10 +32,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="index.php">Trang chủ</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="tb.php">Bài viết</a>
+                    <a class="nav-link active" href="index.php">Trang chủ</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="about.php">Giới thiệu</a>
@@ -45,7 +40,7 @@
                 <?php
                 if(empty($_SESSION['username'])) { ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="tb.php">Đăng nhập</a>
+                        <a class="nav-link" href="login.php">Đăng nhập</a>
                     </li>
                 <?php
                 }
@@ -53,7 +48,7 @@
                 <?php
                 if(!empty($_SESSION['username'])) { ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="logoutuser.php">&nbsp; <?= $_SESSION['username']; ?> </a>
+                        <a class="nav-link" href="logout.php">&nbsp; <?= $_SESSION['username']; ?> </a>
                     </li>
                 <?php
                 }
@@ -70,7 +65,6 @@
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="site-heading">
-                    <h1></h1>
                     <span class="subheading"></span>
                 </div>
             </div>
@@ -116,7 +110,7 @@
 				$DateTime = $DataRows["created"];		
             ?>
             <div class="post-preview">
-                <a href="post.php?id=<?= $PostId; ?>">
+                <a href="post.php?slug=<?= $Slug; ?>">
                 <img class="card-img-top img-responsive img-rounded" src="upload/<?= $Image; ?>" alt="">
                     <h2 class="post-title"><?= htmlentities($Title); ?></h2>
                     <h3 class="post-subtitle"></h3>
@@ -140,7 +134,6 @@
             for ($i = 1; $i <= $total_page; $i++){
                 if ($i == $current_page) { ?>
                     <!-- echo '<span>'.$i.'</span> | '; -->
-
                 <?php
                 }
                 else{
@@ -200,11 +193,10 @@
     </div>
 </footer>
 
-<!-- Bootstrap core JavaScript -->
-<script src="js/jquery-3.3.1.slim.min.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="js/bootstrap4.min.js"></script>
-<!-- Custom scripts for this template -->
-<script src="js/clean-blog.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+<script src="./js/bootstrap.bundle.min.js"></script>
+<script src="./js/clean-blog.min.js"></script>
 </body>
 </html>

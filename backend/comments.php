@@ -6,10 +6,9 @@
 	<meta charset="UTF-8">
 	<title>Comment</title>
     <link rel="shortcut icon" href="../favicon.ico">
-	<link rel="stylesheet" href="../css/bootstrap.min.css">
-	<link rel="stylesheet" href="../css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="../css/fontawesome.css">
-    <link rel="stylesheet" href="../css/adminstyle.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/adminstyle.css">
 </head>
 <body>
 <nav class="navbar navbar-default" role="navigation">
@@ -29,11 +28,7 @@
 		<div class="collapse navbar-collapse" id="collapse">
 		<ul class="nav navbar-nav">
 			<li><a href="#">Home</a></li>
-<<<<<<< HEAD:backend/comments.php
 			<li class="active"><a href="../index.php" target="_blank">Blog</a></li>
-=======
-			<li class="active"><a href="index.php" target="_blank">Blog</a></li>
->>>>>>> f8e57e057c5a3e3fbc744fc2757d380a87b03e29:comments.php
 			<li><a href="#">About Us</a></li>
 			<li><a href="#">Services</a></li>
 			<li><a href="#">Contact Us</a></li>
@@ -97,14 +92,14 @@
                     <th>Details</th>
                 </tr>
                 <?php
-                $Query = "SELECT * FROM comment WHERE status = 'OFF'";
+                $Query = "SELECT idcomment, username, comments, slug FROM comment, user, post WHERE status = 'OFF' AND comment.iduser = user.iduser";
                 $Execute = mysqli_query($Connection, $Query);
                 $SrNo = 0;
                 while ($DataRows = mysqli_fetch_array($Execute)) {
                     $CommentId = $DataRows['idcomment'];
-                    $UserComment = $DataRows['iduser'];
-                    $AdminApply = $DataRows['idadmin'];
+                    $UserComment = $DataRows['username'];
                     $PersonComment = $DataRows['comments'];
+                    $Slug = $DataRows["slug"];
                     $SrNo++;
                     if (strlen($UserComment) > 10) {$UserComment = substr($UserComment, 0, 10).'...';}
                 ?>
@@ -114,7 +109,7 @@
                     <td><?= htmlentities($PersonComment); ?></td>
                     <td><a href="approvecomments.php?id=<?= $CommentId; ?>"><span class="btn btn-success">Approve</span></a></td>
                     <td><a href="deletecomments.php?id=<?= $CommentId ?>"><span class="btn btn-danger">Delete</span></a></td>
-                    <td><a href="fullpost.php?id=<?= $CommentedPostId; ?>" target = "_blank"><span class="btn btn-primary">Live Preview</span></a></td>
+                    <td><a href="../post.php?slug=<?= $Slug; ?>" target = "_blank"><span class="btn btn-primary">Live Preview</span></a></td>
                 </tr>
                 <?php
                 }
@@ -135,14 +130,14 @@
                 </tr>
                 <?php
                 $Admin = "TruongTuanIT";
-                $Query = "SELECT * FROM comment WHERE status = 'ON'";
+                $Query = "SELECT idcomment, username, comments, slug  FROM comment, user, post WHERE status = 'ON' AND comment.iduser = user.iduser";
                 $Execute = mysqli_query($Connection, $Query);
                 $SrNo = 0;
                 while ($DataRows = mysqli_fetch_array($Execute)) {
                     $CommentId = $DataRows['idcomment'];
-                    $UserComment = $DataRows['iduser'];
-                    $AdminApply = $DataRows['idadmin'];
-                    $PersonComment = $DataRows['comments'];;
+                    $UserComment = $DataRows['username'];
+                    $PersonComment = $DataRows['comments'];
+                    $Slug = $DataRows["slug"];
                     $SrNo++;
                     if (strlen($UserComment) > 10) {$UserComment = substr($UserComment, 0, 10).'...';}
                 ?>
@@ -153,7 +148,7 @@
                     <td><?= $Admin; ?></td>
                     <td><a href="disapprovecomments.php?id=<?= $CommentId; ?>"><span class="btn btn-warning">Dis-Approve</span></a></td>
                     <td><a href="deletecomments.php?id=<?= $CommentId ?>"><span class="btn btn-danger">Delete</span></a></td>
-                    <td><a href="fullpost.php?id=<?= $CommentedPostId; ?>" target = "_blank"><span class="btn btn-primary">Live Preview</span></a></td>
+                    <td><a href="../post.php?slug=<?= $Slug; ?>" target = "_blank"><span class="btn btn-primary">Live Preview</span></a></td>
                 </tr>
                 <?php
                 }
@@ -167,7 +162,7 @@
 <div class="footer">
 	<p style="color: #838383; text-align: center;">&copy; &nbsp;2018</p>
 </div>
-<script src="../js/jquery.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>

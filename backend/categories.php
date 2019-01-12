@@ -11,16 +11,16 @@ if(isset($_POST['submit'])) {
 	if(empty($Category)) {
 		$_SESSION["ErrorMessage"] = 'All Fields must be filled out';
 		Redirect_to("dashboard.php");
+		exit();
+	}
+	$Query = "INSERT INTO category (namecategory, created) VALUES ('$Category', '$dateTime')";
+	$Execute = mysqli_query($Connection, $Query);
+	if ($Execute) {
+		$_SESSION["SuccessMessage"] = "Category Added Successfully";
+		Redirect_to("categories.php");
 	} else {
-		$Query = "INSERT INTO category (namecategory, created) VALUES ('$Category', '$dateTime')";
-		$Execute = mysqli_query($Connection, $Query);
-		if ($Execute) {
-			$_SESSION["SuccessMessage"] = "Category Added Successfully";
-			Redirect_to("categories.php");
-		} else {
-			$_SESSION["ErrorMessage"] = "Category faild to add";
-			Redirect_to("categories.php");
-		}
+		$_SESSION["ErrorMessage"] = "Category faild to add";
+		Redirect_to("categories.php");
 	}
 }
 ?>
@@ -30,10 +30,9 @@ if(isset($_POST['submit'])) {
 	<meta charset="UTF-8">
 	<title>Categories</title>
 	<link rel="shortcut icon" href="../favicon.ico">
-	<link rel="stylesheet" href="../css/bootstrap.min.css">
-	<link rel="stylesheet" href="../css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="../css/fontawesome.css">
-	<link rel="stylesheet" href="../css/adminstyle.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+	<link rel="stylesheet" href="./css/adminstyle.css">
 	<style type="text/css">
 		.FieldInfo {
 			color: rgb(251, 174, 44);
@@ -60,11 +59,7 @@ if(isset($_POST['submit'])) {
 	<div class="collapse navbar-collapse" id="collapse">
 		<ul class="nav navbar-nav">
 			<li><a href="#">Home</a></li>
-<<<<<<< HEAD:backend/categories.php
 			<li class="active"><a href="../index.php" target="_blank">Blog</a></li>
-=======
-			<li class="active"><a href="index.php" target="_blank">Blog</a></li>
->>>>>>> f8e57e057c5a3e3fbc744fc2757d380a87b03e29:categories.php
 			<li><a href="#">About Us</a></li>
 			<li><a href="#">Services</a></li>
 			<li><a href="#">Contact Us</a></li>
@@ -135,7 +130,6 @@ if(isset($_POST['submit'])) {
 						<th>Action</th>
 					</tr>
 					<?php
-					global $Connection;
 					$ViewQuery = "SELECT * FROM category";
 					$Execute = mysqli_query($Connection, $ViewQuery);
 					$SrNo = 0;
@@ -167,7 +161,7 @@ if(isset($_POST['submit'])) {
 <div class="footer">
 	<p style="color: #838383; text-align: center;">&copy; &nbsp;2018</p>
 </div>
-<script src="../js/jquery.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>
