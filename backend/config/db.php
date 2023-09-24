@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "Tu@ntru0ng97";
+$password = "12345678";
 $database = "phpcms2";
 
 // Create connection

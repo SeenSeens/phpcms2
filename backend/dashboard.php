@@ -127,7 +127,7 @@
 						</td>
 						<td><?= $Category; ?></td>
 						<td><?= $Admin; ?></td>
-						<td><img src="../upload/<?= $Image; ?>"  width="120px;" height="50px;"></td>
+						<td><img src="../images/<?= $Image; ?>"  width="120px;" height="50px;"></td>
 						<td>
 							<?php
 							$QueryApproved = "SELECT COUNT(*) FROM comment WHERE idpost = '$Id' AND status = 'ON'";

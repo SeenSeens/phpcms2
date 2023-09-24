@@ -1,4 +1,5 @@
-<?php require_once 'include/db.php'; ?>
+<?php global $Connection;
+require_once 'include/db.php'; ?>
 <?php require_once 'include/sessions.php'; ?>
 <?php require_once 'include/functions.php'; ?>
 

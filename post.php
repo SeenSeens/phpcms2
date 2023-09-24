@@ -98,7 +98,7 @@ while ($DataRows = mysqli_fetch_array($Execute)) {
     $Content = $DataRows["content"];
     $DateTime = $DataRows["created"];
 ?>
-<header class="masthead" style="background-image: url('./upload/<?= $Image; ?>');">
+<header class="masthead" style="background-image: url('./images/<?= $Image; ?>');">
     <div class="overlay"></div>
         <div class="container-fluid">
             <div class="row">

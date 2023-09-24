@@ -12,7 +12,7 @@ if(isset($_POST['submit'])) {
 	$dateTime;
 	$Admin = "TuanIT";
 	$Image = $_FILES["Image"]["name"];
-	$Target = "../upload/".basename($_FILES["Image"]["name"]);	
+	$Target = "../images/".basename($_FILES["Image"]["name"]);
 	if(empty($Title)) {
 		$_SESSION["ErrorMessage"] = "Title can't be empty";
 		Redirect_to("addnewpost.php");

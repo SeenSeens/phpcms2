@@ -1,4 +1,5 @@
-<?php require_once './config/config.php'; ?>
+<?php global $Connection;
+require_once './config/config.php'; ?>
 <?php
 if(isset($_POST['submit'])) {
 	$Title = mysqli_real_escape_string($Connection, $_POST['Title']);
@@ -11,7 +12,7 @@ if(isset($_POST['submit'])) {
 	$dateTime;
 	$Admin = "TuanIT";
 	$Image = $_FILES["Image"]["name"];
-	$Target = "../upload/".basename($_FILES["Image"]["name"]);	
+	$Target = "../images/".basename($_FILES["Image"]["name"]);
 	if(empty($Title)) {
 		$_SESSION["ErrorMessage"] = "Title can't be empty";
 		Redirect_to("addnewpost.php");
@@ -169,7 +170,7 @@ if(isset($_POST['submit'])) {
 </footer>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="./tinymce/js/tinymce/tinymce.min.js"></script>
+<script src="./tinymce/tinymce.min.js"></script>
 <script src="./js/tiny.js"></script>
 <script src="./js/slug.js"></script>
 </body>
